@@ -4,253 +4,1696 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>NYC. EXOTIC | Luxury Automotive Services, New York City</title>
+  <meta name="description" content="New York's premier luxury automotive atelier. Exotic rental, white-glove delivery, pre-owned acquisition, specialist repair, GPS installation, and 24/7 towing.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Outfit:wght@200;300;400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+  <style>
+/* =========================================================================
+   NYC. EXOTIC — Design System
+   Light Editorial / Warm Cream / Cormorant + Outfit
+   ========================================================================= */
+
+/* ---- TOKENS ---- */
+:root {
+  --bg:          #FAF8F4;
+  --surface:     #F0EDE6;
+  --surface-2:   #E8E3D9;
+  --text-primary:   #111111;
+  --text-secondary: #6B6858;
+  --accent:      #B8903A;
+  --accent-dim:  rgba(184, 144, 58, 0.10);
+  --border:      rgba(0, 0, 0, 0.10);
+  --font-serif: 'Cormorant Garamond', Georgia, serif;
+  --font-sans:  'Outfit', system-ui, sans-serif;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.76, 0, 0.24, 1);
+  --transition: 0.35s var(--ease-out);
+}
+
+/* ---- RESET ---- */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.6;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+img { display: block; width: 100%; }
+a { color: inherit; }
+button { font-family: var(--font-sans); }
+::selection { background: var(--accent); color: var(--bg); }
+h1, h2, h3, h4 { font-family: var(--font-serif); font-weight: 400; line-height: 1; }
+
+/* ---- UTILITY ---- */
+.container {
+  max-width: 1400px;
+  margin-inline: auto;
+  padding-inline: clamp(1.5rem, 5vw, 4rem);
+}
+.section-eyebrow {
+  font-size: 0.7rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 1.25rem;
+  font-family: var(--font-sans);
+}
+.section-heading {
+  font-family: var(--font-serif);
+  font-size: clamp(2.5rem, 4.5vw, 5rem);
+  font-weight: 300;
+  letter-spacing: -0.015em;
+  line-height: 0.95;
+  margin-bottom: 1.25rem;
+}
+.section-subtext {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  line-height: 1.75;
+  max-width: 520px;
+}
+.divider { border: none; border-top: 1px solid var(--border); }
+.section-container { padding-block: clamp(4rem, 7vw, 7rem); }
+
+/* ---- BUTTONS ---- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 0.85rem 2rem;
+  cursor: pointer;
+  border: none;
+  transition: background var(--transition), color var(--transition), border-color var(--transition);
+  white-space: nowrap;
+}
+.btn-gold { background: var(--accent); color: var(--bg); }
+.btn-gold:hover { background: #d9ba80; }
+.btn-outline {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-primary);
+}
+.btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+.btn-full { width: 100%; justify-content: center; }
+.link-arrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--accent);
+  border-bottom: 1px solid transparent;
+  padding-bottom: 2px;
+  transition: border-color var(--transition);
+}
+.link-arrow:hover { border-bottom-color: var(--accent); }
+
+/* =========================================================================
+   NAVIGATION
+   ========================================================================= */
+.nav {
+  position: fixed;
+  inset-block-start: 0;
+  inset-inline: 0;
+  z-index: 900;
+  border-bottom: 1px solid transparent;
+  transition: background 0.4s, border-color 0.4s, backdrop-filter 0.4s;
+}
+.nav.is-scrolled {
+  background: rgba(250, 248, 244, 0.96);
+  border-bottom-color: var(--border);
+  backdrop-filter: blur(12px);
+}
+.nav-container {
+  max-width: 1400px;
+  margin-inline: auto;
+  padding: 1.4rem clamp(1.5rem, 5vw, 4rem);
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+}
+.nav-logo {
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--text-primary);
+  flex-shrink: 0;
+}
+.nav-center {
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
+  margin-inline: auto;
+}
+.nav-link {
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  text-decoration: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  transition: color var(--transition);
+}
+.nav-link:hover,
+.nav-link.is-active { color: var(--text-primary); }
+.nav-dropdown { position: relative; }
+.nav-dropdown-trigger .arrow {
+  font-size: 0.6rem;
+  transition: transform var(--transition);
+}
+.nav-dropdown:hover .arrow { transform: rotate(180deg); }
+.dropdown-panel {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-6px);
+  min-width: 230px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 1rem 0 0.5rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.22s, transform 0.22s;
+}
+.nav-dropdown:hover .dropdown-panel,
+.nav-dropdown.is-open .dropdown-panel {
+  opacity: 1;
+  pointer-events: all;
+  transform: translateX(-50%) translateY(0);
+}
+.dropdown-panel a {
+  display: block;
+  padding: 0.75rem 1.4rem;
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  text-decoration: none;
+  letter-spacing: 0.04em;
+  transition: color 0.2s, background 0.2s;
+}
+.dropdown-panel a:hover { color: var(--text-primary); background: rgba(255,255,255,0.03); }
+.nav-right { display: flex; align-items: center; gap: 1.5rem; flex-shrink: 0; }
+.hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 28px;
+  height: 24px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+.hamburger span {
+  display: block;
+  height: 1px;
+  background: var(--text-primary);
+  transition: transform 0.3s, opacity 0.3s;
+  transform-origin: center;
+}
+.hamburger.is-open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+.hamburger.is-open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.hamburger.is-open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+.mobile-nav {
+  position: fixed;
+  inset: 0;
+  background: var(--bg);
+  z-index: 899;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  transform: translateX(100%);
+  transition: transform 0.5s var(--ease-in-out);
+}
+.mobile-nav.is-open { transform: translateX(0); }
+.mobile-nav a {
+  font-family: var(--font-serif);
+  font-size: clamp(2rem, 7vw, 3.5rem);
+  text-decoration: none;
+  color: var(--text-secondary);
+  transition: color 0.3s;
+  text-align: center;
+}
+.mobile-nav a:hover { color: var(--text-primary); }
+.mobile-nav .btn { font-family: var(--font-sans); font-size: 0.75rem; margin-top: 1rem; }
+
+/* =========================================================================
+   HOMEPAGE — HERO
+   ========================================================================= */
+.hero {
+  height: 100vh;
+  min-height: 600px;
+  display: grid;
+  grid-template-columns: 55fr 45fr;
+  overflow: hidden;
+}
+.hero-img-col { position: relative; overflow: hidden; }
+.hero-img-col img { width: 100%; height: 100%; object-fit: cover; object-position: center; }
+.hero-text-col {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 clamp(2rem, 5vw, 5rem);
+  padding-top: 6rem;
+  background: var(--bg);
+}
+.hero-eyebrow {
+  font-size: 0.7rem;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  margin-bottom: 2rem;
+}
+.hero-title {
+  font-size: clamp(3.5rem, 7vw, 8rem);
+  font-weight: 300;
+  letter-spacing: -0.02em;
+  line-height: 0.92;
+  margin-bottom: 2rem;
+}
+.hero-title em { font-style: italic; color: var(--accent); }
+.hero-desc {
+  font-size: 0.98rem;
+  color: var(--text-secondary);
+  line-height: 1.75;
+  max-width: 380px;
+  margin-bottom: 2.5rem;
+}
+.hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; }
+.hero-label {
+  margin-top: auto;
+  padding-bottom: 3rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.hero-label::before {
+  content: '';
+  display: block;
+  width: 36px;
+  height: 1px;
+  background: var(--accent);
+  flex-shrink: 0;
+}
+.hero-label-text {
+  font-size: 0.68rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+/* =========================================================================
+   STATS STRIP
+   ========================================================================= */
+.stats-strip { background: transparent; border-block: 1px solid var(--border); }
+.stats-strip-inner {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  max-width: 1400px;
+  margin-inline: auto;
+  padding-inline: clamp(1.5rem, 5vw, 4rem);
+}
+.stat-item { padding: 2rem 2vw; border-right: 1px solid var(--border); }
+.stat-item:last-child { border-right: none; }
+.stat-num {
+  font-family: var(--font-serif);
+  font-size: clamp(2rem, 3.5vw, 3.5rem);
+  font-weight: 300;
+  color: var(--accent);
+  line-height: 1;
+  margin-bottom: 0.5rem;
+}
+.stat-label {
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
+/* =========================================================================
+   SERVICES ACCORDION
+   ========================================================================= */
+.services-accordion-section { border-block: 1px solid var(--border); }
+.services-accordion-layout {
+  display: grid;
+  grid-template-columns: 55fr 45fr;
+  min-height: 88vh;
+}
+.services-accordion-left {
+  padding: clamp(4rem, 6vw, 6rem) clamp(2rem, 6vw, 6rem);
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid var(--border);
+}
+.acc-header { margin-bottom: clamp(2.5rem, 4vw, 4rem); }
+.services-accordion { flex: 1; }
+.acc-item { border-top: 1px solid var(--border); }
+.acc-item:last-child { border-bottom: 1px solid var(--border); }
+.acc-trigger {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.4rem 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text-secondary);
+  text-align: left;
+  transition: color var(--transition);
+}
+.acc-trigger:hover,
+.acc-item.is-open .acc-trigger { color: var(--text-primary); }
+.acc-num {
+  font-family: var(--font-sans);
+  font-size: 0.65rem;
+  letter-spacing: 0.22em;
+  color: var(--accent);
+  width: 2.2rem;
+  flex-shrink: 0;
+}
+.acc-sep { color: var(--border); flex-shrink: 0; font-size: 0.9rem; opacity: 0.6; }
+.acc-name {
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  flex-grow: 1;
+}
+.acc-icon {
+  font-size: 1.4rem;
+  font-weight: 200;
+  color: var(--accent);
+  line-height: 1;
+  flex-shrink: 0;
+  transition: transform 0.4s var(--ease-out);
+}
+.acc-item.is-open .acc-icon { transform: rotate(45deg); }
+.acc-body {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.42s var(--ease-out);
+}
+.acc-item.is-open .acc-body { grid-template-rows: 1fr; }
+.acc-body-inner {
+  overflow: hidden;
+  min-height: 0;
+  padding-bottom: 0;
+  transition: padding-bottom 0.42s var(--ease-out);
+}
+.acc-item.is-open .acc-body-inner { padding-bottom: 1.75rem; }
+.acc-desc {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.75;
+  margin-bottom: 1.25rem;
+  padding-left: 4.2rem;
+  max-width: 440px;
+}
+.acc-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  text-decoration: none;
+  padding-left: 4.2rem;
+  transition: gap var(--transition);
+}
+.acc-link:hover { gap: 0.9rem; }
+.acc-footer-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.2rem 2rem;
+  margin-top: 2.5rem;
+  background: var(--accent);
+  color: var(--bg);
+  text-decoration: none;
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-weight: 500;
+  transition: background var(--transition);
+}
+.acc-footer-bar:hover { background: #d9ba80; }
+.services-accordion-img { position: relative; overflow: hidden; }
+.services-accordion-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 30%;
+  filter: grayscale(35%) contrast(1.1);
+  transition: filter 1.2s ease, transform 8s ease;
+}
+.services-accordion-section:hover .services-accordion-img img {
+  filter: grayscale(10%) contrast(1.05);
+  transform: scale(1.03);
+}
+.services-accordion-img-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, rgba(250,248,244,0.45) 0%, transparent 50%);
+}
+
+/* =========================================================================
+   FEATURED FLEET SPLIT
+   ========================================================================= */
+.fleet-featured {
+  display: grid;
+  grid-template-columns: 60fr 40fr;
+  min-height: 70vh;
+  border-block: 1px solid var(--border);
+}
+.fleet-featured-img { position: relative; overflow: hidden; }
+.fleet-featured-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(25%) contrast(1.1);
+  transition: filter 0.7s, transform 0.7s;
+}
+.fleet-featured:hover .fleet-featured-img img { filter: grayscale(0%); transform: scale(1.02); }
+.fleet-featured-text {
+  background: var(--surface);
+  padding: clamp(3rem, 6vw, 6rem) clamp(2rem, 4vw, 4rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-left: 1px solid var(--border);
+}
+.fleet-featured-text .section-heading { margin-bottom: 1.5rem; }
+.fleet-featured-text p {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  line-height: 1.75;
+  margin-bottom: 2rem;
+}
+.marque-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  margin-bottom: 2.5rem;
+}
+.marque-list li {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  font-size: 0.82rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  transition: color var(--transition);
+}
+.marque-list li:hover { color: var(--text-primary); }
+.marque-list li::before {
+  content: '';
+  width: 18px;
+  height: 1px;
+  background: var(--accent);
+  flex-shrink: 0;
+}
+
+/* =========================================================================
+   WHY US
+   ========================================================================= */
+.why-section { padding-block: clamp(4rem, 8vw, 8rem); border-top: 1px solid var(--border); }
+.why-list { margin-top: clamp(3rem, 5vw, 5rem); }
+.why-list-item {
+  display: grid;
+  grid-template-columns: 4rem 1fr;
+  gap: 2.5rem;
+  padding: 2.25rem 0;
+  border-top: 1px solid var(--border);
+  align-items: start;
+}
+.why-list-item:last-child { border-bottom: 1px solid var(--border); }
+.why-list-num {
+  font-family: var(--font-sans);
+  font-size: 0.68rem;
+  letter-spacing: 0.2em;
+  color: var(--accent);
+  padding-top: 0.35rem;
+}
+.why-list-title {
+  font-family: var(--font-serif);
+  font-size: clamp(1.4rem, 2vw, 1.9rem);
+  font-weight: 300;
+  margin-bottom: 0.75rem;
+  line-height: 1.1;
+}
+.why-list-desc { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.7; max-width: 560px; }
+
+/* =========================================================================
+   CTA BANNER
+   ========================================================================= */
+.cta-banner {
+  background: var(--bg);
+  border-top: 1px solid var(--border);
+  text-align: left;
+  padding: clamp(4rem, 8vw, 8rem) clamp(1.5rem, 5vw, 4rem);
+}
+.cta-banner::before {
+  content: '';
+  display: block;
+  width: 48px;
+  height: 1px;
+  background: var(--accent);
+  margin-bottom: 3rem;
+}
+.cta-banner h2 {
+  font-size: clamp(3.5rem, 7vw, 9rem);
+  font-weight: 300;
+  letter-spacing: -0.02em;
+  margin-bottom: 1.5rem;
+}
+.cta-banner p {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  margin-bottom: 2.5rem;
+  max-width: 480px;
+  line-height: 1.75;
+}
+
+/* =========================================================================
+   FOOTER
+   ========================================================================= */
+.site-footer { border-top: 1px solid var(--border); padding: clamp(3rem, 6vw, 6rem) 0 2rem; }
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1.2fr;
+  gap: clamp(2rem, 4vw, 5rem);
+  margin-bottom: clamp(3rem, 5vw, 5rem);
+}
+.footer-logo {
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+}
+.footer-tagline { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.7; max-width: 240px; }
+.footer-col-title {
+  font-size: 0.68rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  margin-bottom: 1.5rem;
+}
+.footer-col a {
+  display: block;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  text-decoration: none;
+  margin-bottom: 0.75rem;
+  transition: color var(--transition);
+}
+.footer-col a:hover { color: var(--text-primary); }
+.footer-col address { font-style: normal; }
+.footer-col address p { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: 0.5rem; }
+.footer-bottom {
+  padding-top: 2rem;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+.footer-copyright { font-size: 0.72rem; color: var(--text-secondary); letter-spacing: 0.05em; }
+.footer-social { display: flex; gap: 1.5rem; }
+.footer-social a {
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: color var(--transition);
+}
+.footer-social a:hover { color: var(--accent); }
+
+/* =========================================================================
+   PAGE HERO (service pages)
+   ========================================================================= */
+.page-hero {
+  height: 70vh;
+  min-height: 500px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+}
+.page-hero-bg { position: absolute; inset: 0; }
+.page-hero-bg img { width: 100%; height: 100%; object-fit: cover; object-position: center; }
+.page-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, var(--bg) 0%, rgba(20,16,10,0.55) 45%, rgba(20,16,10,0.15) 100%);
+}
+.page-hero-content { position: relative; z-index: 2; width: 100%; padding-bottom: clamp(3rem, 5vw, 5rem); }
+.page-hero-breadcrumb {
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(250,248,244,0.65);
+  margin-bottom: 1.25rem;
+}
+.page-hero-breadcrumb a { color: inherit; text-decoration: none; }
+.page-hero-breadcrumb a:hover { color: var(--text-primary); }
+.page-hero-breadcrumb .sep { margin-inline: 0.5rem; opacity: 0.4; }
+.page-hero h1 { font-size: clamp(3rem, 7vw, 7rem); line-height: 0.92; margin-bottom: 1.25rem; color: #FAF8F4; }
+.page-hero h1 em { font-style: italic; color: var(--accent); }
+.page-hero-tagline { font-size: 1rem; color: rgba(250,248,244,0.72); max-width: 480px; line-height: 1.6; }
+
+/* =========================================================================
+   SERVICE PAGE — SHARED SECTION COMPONENTS
+   ========================================================================= */
+.overview-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(3rem, 6vw, 6rem);
+  align-items: start;
+}
+.overview-text p { font-size: 1rem; color: var(--text-secondary); line-height: 1.8; margin-bottom: 1.5rem; }
+.key-points { list-style: none; display: flex; flex-direction: column; gap: 0.85rem; margin-top: 1.5rem; }
+.key-point {
+  padding: 1rem 1.25rem;
+  border-left: 2px solid var(--accent);
+  background: var(--surface);
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.55;
+}
+.highlight-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 2.5rem;
+  position: sticky;
+  top: 6rem;
+}
+.highlight-card-title {
+  font-size: 0.68rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
+}
+.highlight-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  padding: 0.9rem 0;
+  border-bottom: 1px solid var(--border);
+}
+.highlight-row:last-child { border-bottom: none; }
+.highlight-row-label { font-size: 0.78rem; color: var(--text-secondary); letter-spacing: 0.05em; }
+.highlight-row-val { font-family: var(--font-serif); font-size: 1.05rem; color: var(--text-primary); text-align: right; }
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(1rem, 1.5vw, 1.5rem);
+}
+.feature-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-top: 2px solid transparent;
+  padding: 2.5rem;
+  transition: border-top-color var(--transition), background var(--transition);
+}
+.feature-card:hover { border-top-color: var(--accent); background: var(--surface-2); }
+.feature-num { font-family: var(--font-serif); font-size: 2rem; color: var(--accent); opacity: 0.45; line-height: 1; margin-bottom: 1.5rem; }
+.feature-title { font-family: var(--font-serif); font-size: 1.4rem; margin-bottom: 0.85rem; }
+.feature-desc { font-size: 0.87rem; color: var(--text-secondary); line-height: 1.65; }
+.process-section { border-top: 1px solid var(--border); }
+.process-steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin-top: clamp(2rem, 4vw, 4rem);
+}
+.process-step {
+  padding: clamp(2rem, 3vw, 3rem);
+  border: 1px solid var(--border);
+  border-left: none;
+  position: relative;
+}
+.process-step:first-child { border-left: 1px solid var(--border); }
+.process-step-num {
+  font-family: var(--font-serif);
+  font-size: 4.5rem;
+  color: var(--accent);
+  opacity: 0.12;
+  line-height: 1;
+  margin-bottom: 1.5rem;
+  display: block;
+}
+.process-step-title { font-family: var(--font-serif); font-size: 1.4rem; margin-bottom: 0.75rem; }
+.process-step-desc { font-size: 0.87rem; color: var(--text-secondary); line-height: 1.65; }
+.other-services-section {
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  padding-block: clamp(4rem, 7vw, 7rem);
+}
+.other-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(1rem, 1.5vw, 1.5rem);
+  margin-top: 2.5rem;
+}
+.other-card {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  padding: 2.5rem;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  transition: border-color var(--transition);
+  cursor: pointer;
+}
+.other-card:hover { border-color: var(--accent); }
+.other-card-title { font-family: var(--font-serif); font-size: 1.5rem; color: var(--text-primary); }
+.other-card-desc { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6; flex-grow: 1; }
+.page-cta-section { border-top: 1px solid var(--border); }
+.page-cta-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr auto;
+  gap: 1rem;
+  align-items: end;
+  margin-top: 2rem;
+  max-width: 900px;
+}
+
+/* =========================================================================
+   SERVICE-SPECIFIC — RENTAL: Fleet grid
+   ========================================================================= */
+.fleet-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(1rem, 1.5vw, 1.5rem);
+}
+.fleet-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  overflow: hidden;
+  transition: border-color var(--transition);
+}
+.fleet-card:hover { border-color: var(--accent); }
+.fleet-card-img { height: 200px; overflow: hidden; }
+.fleet-card-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(55%) contrast(1.1);
+  transition: filter 0.6s, transform 0.6s;
+}
+.fleet-card:hover .fleet-card-img img { filter: grayscale(0%); transform: scale(1.04); }
+.fleet-card-info { padding: 1.5rem; }
+.fleet-card-category { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-secondary); margin-bottom: 0.4rem; }
+.fleet-card-name { font-family: var(--font-serif); font-size: 1.5rem; margin-bottom: 0.4rem; }
+.fleet-card-price { font-size: 0.85rem; color: var(--accent); }
+
+/* =========================================================================
+   SERVICE-SPECIFIC — DELIVERY: Coverage areas
+   ========================================================================= */
+.coverage-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border: 1px solid var(--border);
+  margin-top: 2.5rem;
+}
+.coverage-item {
+  padding: 2rem;
+  border-right: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+.coverage-item:nth-child(3n) { border-right: none; }
+.coverage-item:nth-last-child(-n+3):nth-child(3n+1),
+.coverage-item:nth-last-child(-n+3):nth-child(3n+2),
+.coverage-item:nth-last-child(-n+3):nth-child(3n) { border-bottom: none; }
+.coverage-name { font-family: var(--font-serif); font-size: 1.2rem; margin-bottom: 0.4rem; }
+.coverage-detail { font-size: 0.8rem; color: var(--text-secondary); line-height: 1.5; }
+
+/* =========================================================================
+   SERVICE-SPECIFIC — ACQUISITION: Inventory cards
+   ========================================================================= */
+.inventory-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(1rem, 1.5vw, 1.5rem);
+}
+.inventory-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  overflow: hidden;
+  transition: border-color var(--transition);
+}
+.inventory-card:hover { border-color: var(--accent); }
+.inventory-img-wrap { height: 220px; position: relative; overflow: hidden; }
+.inventory-img-placeholder { position: absolute; inset: 0; transition: transform 0.6s; }
+.inventory-card:hover .inventory-img-placeholder { transform: scale(1.03); }
+.inventory-badge {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  background: var(--accent);
+  color: var(--bg);
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 0.3rem 0.75rem;
+  z-index: 2;
+}
+.inventory-info { padding: 1.5rem; }
+.inventory-meta { font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-secondary); margin-bottom: 0.6rem; }
+.inventory-name { font-family: var(--font-serif); font-size: 1.8rem; line-height: 1.05; margin-bottom: 0.5rem; }
+.inventory-desc { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.55; margin-bottom: 1.25rem; }
+.inventory-price { font-family: var(--font-serif); font-size: 1.5rem; color: var(--accent); margin-bottom: 1.25rem; }
+
+/* =========================================================================
+   SERVICE-SPECIFIC — REPAIR: Marques list
+   ========================================================================= */
+.marques-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border: 1px solid var(--border);
+  margin-top: 2.5rem;
+}
+.marque-item {
+  padding: 1.5rem 2rem;
+  border-right: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  font-family: var(--font-serif);
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  transition: color var(--transition), background var(--transition);
+}
+.marque-item:hover { color: var(--text-primary); background: var(--surface); }
+.marque-item:nth-child(4n) { border-right: none; }
+.marque-item:nth-last-child(-n+4) { border-bottom: none; }
+
+/* =========================================================================
+   SERVICE-SPECIFIC — INTELLIGENCE: Packages
+   ========================================================================= */
+.packages-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border: 1px solid var(--border);
+  margin-top: 2.5rem;
+}
+.package-col {
+  padding: 2.5rem;
+  border-right: 1px solid var(--border);
+  border-top: 3px solid transparent;
+}
+.package-col:last-child { border-right: none; }
+.package-col.featured { background: var(--surface-2); border-top-color: var(--accent); }
+.package-badge { font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 1rem; }
+.package-name { font-family: var(--font-serif); font-size: 1.5rem; margin-bottom: 0.35rem; }
+.package-desc { font-size: 0.82rem; color: var(--text-secondary); margin-bottom: 2rem; }
+.package-items { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; }
+.package-item {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  line-height: 1.45;
+}
+.package-item::before {
+  content: '';
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent);
+  flex-shrink: 0;
+  margin-top: 0.45rem;
+}
+
+/* =========================================================================
+   SERVICE-SPECIFIC — TOWING: Emergency
+   ========================================================================= */
+.emergency-block {
+  background: var(--accent);
+  text-align: center;
+  padding: clamp(4rem, 8vw, 8rem) clamp(1.5rem, 5vw, 4rem);
+}
+.emergency-label {
+  font-size: 0.72rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--bg);
+  opacity: 0.65;
+  margin-bottom: 1rem;
+}
+.emergency-phone {
+  font-family: var(--font-serif);
+  font-size: clamp(3.5rem, 9vw, 9rem);
+  color: var(--bg);
+  line-height: 1;
+  text-decoration: none;
+  display: block;
+  margin-bottom: 1.25rem;
+  transition: opacity 0.3s;
+  cursor: pointer;
+}
+.emergency-phone:hover { opacity: 0.8; }
+.emergency-sublabel { font-size: 0.85rem; color: var(--bg); opacity: 0.6; }
+.response-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border: 1px solid var(--border);
+  margin-top: 2.5rem;
+}
+.response-stat { padding: 2.5rem; border-right: 1px solid var(--border); text-align: center; }
+.response-stat:last-child { border-right: none; }
+.response-num {
+  font-family: var(--font-serif);
+  font-size: clamp(2.5rem, 4vw, 4rem);
+  color: var(--accent);
+  line-height: 1;
+  margin-bottom: 0.5rem;
+}
+.response-label { font-size: 0.78rem; letter-spacing: 0.1em; color: var(--text-secondary); text-transform: uppercase; }
+
+/* =========================================================================
+   CONTACT PAGE
+   ========================================================================= */
+.contact-page-hero {
+  height: 45vh;
+  min-height: 320px;
+  background: var(--surface);
+  display: flex;
+  align-items: flex-end;
+  border-bottom: 1px solid var(--border);
+}
+.contact-layout {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: clamp(3rem, 6vw, 6rem);
+  align-items: start;
+  padding-block: clamp(4rem, 7vw, 7rem);
+}
+.full-form { display: flex; flex-direction: column; gap: 1.75rem; }
+.form-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.75rem; }
+.form-group { display: flex; flex-direction: column; gap: 0.55rem; }
+.form-group label {
+  font-size: 0.68rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+.form-group input,
+.form-group select,
+.form-group textarea {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--border);
+  padding: 0.75rem 0;
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color var(--transition);
+  -webkit-appearance: none;
+  appearance: none;
+  resize: none;
+  width: 100%;
+}
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus { border-bottom-color: var(--accent); }
+.form-group input::placeholder,
+.form-group textarea::placeholder { color: var(--text-secondary); opacity: 0.4; }
+.form-group select option { background: var(--surface); color: var(--text-primary); }
+.form-group select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='7' viewBox='0 0 12 7'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236B6858' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.25rem center;
+  padding-right: 2rem;
+}
+.contact-info-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 2.5rem;
+  position: sticky;
+  top: 6rem;
+}
+.contact-info-card-title {
+  font-size: 0.68rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 2rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--border);
+}
+.contact-info-item { padding: 1.25rem 0; border-bottom: 1px solid var(--border); }
+.contact-info-item:last-child { border-bottom: none; }
+.contact-info-label {
+  font-size: 0.68rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 0.4rem;
+}
+.contact-info-value { font-size: 0.95rem; color: var(--text-primary); line-height: 1.55; }
+.contact-info-value a { text-decoration: none; color: inherit; }
+.contact-info-value a:hover { color: var(--accent); }
+.page-hero-short { height: 45vh; min-height: 340px; }
+
+/* =========================================================================
+   RESPONSIVE
+   ========================================================================= */
+@media (max-width: 1024px) {
+  .services-accordion-layout { grid-template-columns: 1fr; min-height: auto; }
+  .services-accordion-img { height: 45vh; order: -1; }
+  .services-accordion-left { border-right: none; border-top: 1px solid var(--border); }
+  .fleet-grid { grid-template-columns: repeat(2, 1fr); }
+  .packages-grid { grid-template-columns: 1fr; }
+  .package-col { border-right: none; border-bottom: 1px solid var(--border); }
+  .package-col:last-child { border-bottom: none; }
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 2.5rem; }
+}
+@media (max-width: 768px) {
+  .nav-center { display: none; }
+  .hamburger { display: flex; }
+  .nav-right .btn { display: none; }
+  .hero { grid-template-columns: 1fr; height: auto; min-height: 100svh; }
+  .hero-img-col { height: 50vh; }
+  .hero-text-col { padding: 2.5rem clamp(1.5rem, 5vw, 4rem); padding-top: 2.5rem; }
+  .hero-label { margin-top: 2rem; padding-bottom: 2rem; }
+  .stats-strip-inner { grid-template-columns: repeat(2, 1fr); }
+  .stat-item:nth-child(2) { border-right: none; }
+  .stat-item:nth-child(3),
+  .stat-item:nth-child(4) { border-top: 1px solid var(--border); }
+  .services-grid { grid-template-columns: 1fr; }
+  .fleet-featured { grid-template-columns: 1fr; min-height: auto; }
+  .fleet-featured-img { height: 50vh; }
+  .fleet-featured-text { border-left: none; border-top: 1px solid var(--border); }
+  .why-list-item { grid-template-columns: 3rem 1fr; gap: 1.5rem; }
+  .overview-grid { grid-template-columns: 1fr; }
+  .highlight-card { position: static; }
+  .features-grid { grid-template-columns: 1fr; }
+  .process-steps { grid-template-columns: 1fr; }
+  .process-step { border-left: 1px solid var(--border) !important; border-right: none; border-top: none; }
+  .process-step:first-child { border-top: 1px solid var(--border); }
+  .other-cards { grid-template-columns: 1fr; }
+  .page-cta-form { grid-template-columns: 1fr; }
+  .fleet-grid { grid-template-columns: 1fr; }
+  .coverage-grid { grid-template-columns: repeat(2, 1fr); }
+  .coverage-item:nth-child(2n) { border-right: none; }
+  .inventory-grid { grid-template-columns: 1fr; }
+  .marques-grid { grid-template-columns: repeat(2, 1fr); }
+  .marque-item:nth-child(2n) { border-right: none !important; }
+  .response-stats { grid-template-columns: 1fr; }
+  .response-stat { border-right: none; border-bottom: 1px solid var(--border); }
+  .response-stat:last-child { border-bottom: none; }
+  .contact-layout { grid-template-columns: 1fr; }
+  .form-row-2 { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr; }
+  .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; }
+}
+@media (max-width: 480px) {
+  .stats-strip-inner { grid-template-columns: 1fr; }
+  .stat-item { border-right: none; border-bottom: 1px solid var(--border); }
+  .stat-item:last-child { border-bottom: none; }
+  .stat-item:nth-child(3),
+  .stat-item:nth-child(4) { border-top: none; }
+  .hero-ctas { flex-direction: column; }
+  .hero-ctas .btn { width: 100%; justify-content: center; }
+  .coverage-grid { grid-template-columns: 1fr; }
+  .coverage-item { border-right: none !important; }
+  .marques-grid { grid-template-columns: 1fr; }
+  .marque-item { border-right: none !important; }
+}
+
+/* ---- IFRAME HIDE ---- */
+.in-iframe #main-nav,
+.in-iframe #mobile-nav,
+.in-iframe .site-footer { display: none !important; }
+  </style>
 </head>
 <body>
+<script>if (window.self !== window.top) document.documentElement.classList.add('in-iframe');</script>
 
-  <!-- Navigation (injected by components.js) -->
-  <div id="site-nav"></div>
-
-  <main>
-
-    <!-- HERO -->
-    <section class="hero" data-reveal-hero>
-      <div class="hero-img-col">
-        <img src="assets/hero_light_1775158002265.png" alt="Luxury vehicle on NYC street" style="object-position: center center;">
-      </div>
-      <div class="hero-text-col">
-        <p class="hero-eyebrow">New York's Premier Automotive Atelier</p>
-        <h1 class="hero-title">Curated<br><em>Elegance.</em></h1>
-        <p class="hero-desc">Unfettered access to the world's most coveted automobiles, paired with white-glove service across six disciplines.</p>
-        <div class="hero-ctas">
-          <a class="btn btn-gold" href="#services">Explore Services</a>
-          <a class="btn btn-outline" href="contact.html">Book Now</a>
-        </div>
-        <div class="hero-label">
-          <span class="hero-label-text">Est. New York City</span>
+<nav class="nav" id="main-nav">
+  <div class="nav-container">
+    <a class="nav-logo" href="#" onclick="navigateTo('/'); return false;" data-page="index.html">NYC. EXOTIC</a>
+    <div class="nav-center">
+      <div class="nav-dropdown">
+        <button class="nav-link nav-dropdown-trigger" id="dropdown-trigger" aria-haspopup="true" aria-expanded="false">
+          Services <span class="arrow">&#9660;</span>
+        </button>
+        <div class="dropdown-panel" id="dropdown-panel" role="menu">
+          <a href="#" onclick="navigateTo('/exotic-rental'); return false;" class="dropdown-link" data-page="rental.html">Exotic Rental</a>
+          <a href="#" onclick="navigateTo('/white-glove-delivery'); return false;" class="dropdown-link" data-page="delivery.html">White-Glove Delivery</a>
+          <a href="#" onclick="navigateTo('/pre-owned-acquisition'); return false;" class="dropdown-link" data-page="acquisition.html">Pre-Owned Vehicles</a>
+          <a href="#" onclick="navigateTo('/auto-repair'); return false;" class="dropdown-link" data-page="repair.html">Auto Repair</a>
+          <a href="#" onclick="navigateTo('/gps-dash-cam'); return false;" class="dropdown-link" data-page="intelligence.html">GPS &amp; Dash Cam</a>
+          <a href="#" onclick="navigateTo('/emergency-towing'); return false;" class="dropdown-link" data-page="towing.html">Emergency Towing</a>
         </div>
       </div>
-    </section>
+      <a class="nav-link" href="#" onclick="navigateTo('/exotic-rental'); return false;" data-page="rental.html">Fleet</a>
+      <a class="nav-link" href="#" onclick="navigateTo('/pre-owned-acquisition'); return false;" data-page="acquisition.html">Acquire</a>
+      <a class="nav-link" href="#" onclick="navigateTo('/contact'); return false;" data-page="contact.html">Contact</a>
+    </div>
+    <div class="nav-right">
+      <a class="btn btn-gold" href="#" onclick="navigateTo('/contact'); return false;">Book Now</a>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
 
-    <!-- STATS STRIP -->
-    <section class="stats-strip" data-reveal>
-      <div class="stats-strip-inner">
-        <div class="stat-item">
-          <div class="stat-num">24/7</div>
-          <div class="stat-label">Service Hours</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-num">200+</div>
-          <div class="stat-label">Vehicles Serviced Monthly</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-num">6</div>
-          <div class="stat-label">Service Disciplines</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-num">&lt;45</div>
-          <div class="stat-label">Min NYC Response</div>
-        </div>
+<div class="mobile-nav" id="mobile-nav" aria-hidden="true">
+  <a href="#" onclick="navigateTo('/'); return false;" data-page="index.html">Home</a>
+  <a href="#" onclick="navigateTo('/exotic-rental'); return false;" data-page="rental.html">Exotic Rental</a>
+  <a href="#" onclick="navigateTo('/white-glove-delivery'); return false;" data-page="delivery.html">White-Glove Delivery</a>
+  <a href="#" onclick="navigateTo('/pre-owned-acquisition'); return false;" data-page="acquisition.html">Pre-Owned Vehicles</a>
+  <a href="#" onclick="navigateTo('/auto-repair'); return false;" data-page="repair.html">Auto Repair</a>
+  <a href="#" onclick="navigateTo('/gps-dash-cam'); return false;" data-page="intelligence.html">GPS &amp; Dash Cam</a>
+  <a href="#" onclick="navigateTo('/emergency-towing'); return false;" data-page="towing.html">Emergency Towing</a>
+  <a href="#" onclick="navigateTo('/contact'); return false;" data-page="contact.html">Contact</a>
+  <a class="btn btn-gold" href="#" onclick="navigateTo('/contact'); return false;">Book Now</a>
+</div>
+
+<main>
+
+  <!-- HERO -->
+  <section class="hero" data-reveal-hero>
+    <div class="hero-img-col">
+      <img src="assets/hero_light_1775158002265.png" alt="Luxury vehicle on NYC street" style="object-position: center center;">
+    </div>
+    <div class="hero-text-col">
+      <p class="hero-eyebrow">New York's Premier Automotive Atelier</p>
+      <h1 class="hero-title">Curated<br><em>Elegance.</em></h1>
+      <p class="hero-desc">Unfettered access to the world's most coveted automobiles, paired with white-glove service across six disciplines.</p>
+      <div class="hero-ctas">
+        <a class="btn btn-gold" href="#services">Explore Services</a>
+        <a class="btn btn-outline" href="#" onclick="navigateTo('/contact'); return false;">Book Now</a>
       </div>
-    </section>
+      <div class="hero-label">
+        <span class="hero-label-text">Est. New York City</span>
+      </div>
+    </div>
+  </section>
 
-    <!-- SERVICES ACCORDION -->
-    <section class="services-accordion-section" id="services">
-      <div class="services-accordion-layout">
+  <!-- STATS STRIP -->
+  <section class="stats-strip" data-reveal>
+    <div class="stats-strip-inner">
+      <div class="stat-item">
+        <div class="stat-num">24/7</div>
+        <div class="stat-label">Service Hours</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">200+</div>
+        <div class="stat-label">Vehicles Serviced Monthly</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">6</div>
+        <div class="stat-label">Service Disciplines</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">&lt;45</div>
+        <div class="stat-label">Min NYC Response</div>
+      </div>
+    </div>
+  </section>
 
-        <!-- LEFT: header + accordion -->
-        <div class="services-accordion-left">
-          <div class="acc-header" data-reveal>
-            <p class="section-eyebrow">Our Disciplines</p>
-            <h2 class="section-heading">Everything Your<br>Vehicle Needs.</h2>
-          </div>
+  <!-- SERVICES ACCORDION -->
+  <section class="services-accordion-section" id="services">
+    <div class="services-accordion-layout">
 
-          <div class="services-accordion">
+      <div class="services-accordion-left">
+        <div class="acc-header" data-reveal>
+          <p class="section-eyebrow">Our Disciplines</p>
+          <h2 class="section-heading">Everything Your<br>Vehicle Needs.</h2>
+        </div>
 
-            <div class="acc-item is-open" data-acc>
-              <button class="acc-trigger" aria-expanded="true">
-                <span class="acc-num">01</span>
-                <span class="acc-sep">|</span>
-                <span class="acc-name">Exotic Rental</span>
-                <span class="acc-icon" aria-hidden="true">+</span>
-              </button>
-              <div class="acc-body">
-                <div class="acc-body-inner">
-                  <p class="acc-desc">Drive the world's finest machines by the day, week, or month. Rolls-Royce to Ferrari, delivered to you.</p>
-                  <a class="acc-link" href="rental.html">Explore Fleet &#8594;</a>
-                </div>
+        <div class="services-accordion">
+
+          <div class="acc-item is-open" data-acc>
+            <button class="acc-trigger" aria-expanded="true">
+              <span class="acc-num">01</span>
+              <span class="acc-sep">|</span>
+              <span class="acc-name">Exotic Rental</span>
+              <span class="acc-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="acc-body">
+              <div class="acc-body-inner">
+                <p class="acc-desc">Drive the world's finest machines by the day, week, or month. Rolls-Royce to Ferrari, delivered to you.</p>
+                <a class="acc-link" href="#" onclick="navigateTo('/exotic-rental'); return false;">Explore Fleet &#8594;</a>
               </div>
             </div>
-
-            <div class="acc-item" data-acc>
-              <button class="acc-trigger" aria-expanded="false">
-                <span class="acc-num">02</span>
-                <span class="acc-sep">|</span>
-                <span class="acc-name">White-Glove Delivery</span>
-                <span class="acc-icon" aria-hidden="true">+</span>
-              </button>
-              <div class="acc-body">
-                <div class="acc-body-inner">
-                  <p class="acc-desc">Your vehicle, your address. Enclosed transport with real-time tracking and a concierge handoff.</p>
-                  <a class="acc-link" href="delivery.html">Learn More &#8594;</a>
-                </div>
-              </div>
-            </div>
-
-            <div class="acc-item" data-acc>
-              <button class="acc-trigger" aria-expanded="false">
-                <span class="acc-num">03</span>
-                <span class="acc-sep">|</span>
-                <span class="acc-name">Pre-Owned Acquisition</span>
-                <span class="acc-icon" aria-hidden="true">+</span>
-              </button>
-              <div class="acc-body">
-                <div class="acc-body-inner">
-                  <p class="acc-desc">Authenticated luxury vehicles with full provenance. Every car is inspected to 212 points before we present it.</p>
-                  <a class="acc-link" href="acquisition.html">View Collection &#8594;</a>
-                </div>
-              </div>
-            </div>
-
-            <div class="acc-item" data-acc>
-              <button class="acc-trigger" aria-expanded="false">
-                <span class="acc-num">04</span>
-                <span class="acc-sep">|</span>
-                <span class="acc-name">Auto Repair</span>
-                <span class="acc-icon" aria-hidden="true">+</span>
-              </button>
-              <div class="acc-body">
-                <div class="acc-body-inner">
-                  <p class="acc-desc">Specialist technicians working exclusively with European and exotic marques. OEM parts. Full documentation.</p>
-                  <a class="acc-link" href="repair.html">The Workshop &#8594;</a>
-                </div>
-              </div>
-            </div>
-
-            <div class="acc-item" data-acc>
-              <button class="acc-trigger" aria-expanded="false">
-                <span class="acc-num">05</span>
-                <span class="acc-sep">|</span>
-                <span class="acc-name">GPS &amp; Dash Cam</span>
-                <span class="acc-icon" aria-hidden="true">+</span>
-              </button>
-              <div class="acc-body">
-                <div class="acc-body-inner">
-                  <p class="acc-desc">Certified GPS tracking and 4K dash cam installations. Factory-finish concealment. Insurance-approved.</p>
-                  <a class="acc-link" href="intelligence.html">The Intelligence &#8594;</a>
-                </div>
-              </div>
-            </div>
-
-            <div class="acc-item" data-acc>
-              <button class="acc-trigger" aria-expanded="false">
-                <span class="acc-num">06</span>
-                <span class="acc-sep">|</span>
-                <span class="acc-name">Emergency Towing</span>
-                <span class="acc-icon" aria-hidden="true">+</span>
-              </button>
-              <div class="acc-body">
-                <div class="acc-body-inner">
-                  <p class="acc-desc">24/7 enclosed flatbed response across all five boroughs and the tristate area. No machine left behind.</p>
-                  <a class="acc-link" href="towing.html">The Assurance &#8594;</a>
-                </div>
-              </div>
-            </div>
-
           </div>
 
-          <a class="acc-footer-bar" href="contact.html">
-            <span>Make an Enquiry</span>
-            <span>&#8594;</span>
-          </a>
+          <div class="acc-item" data-acc>
+            <button class="acc-trigger" aria-expanded="false">
+              <span class="acc-num">02</span>
+              <span class="acc-sep">|</span>
+              <span class="acc-name">White-Glove Delivery</span>
+              <span class="acc-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="acc-body">
+              <div class="acc-body-inner">
+                <p class="acc-desc">Your vehicle, your address. Enclosed transport with real-time tracking and a concierge handoff.</p>
+                <a class="acc-link" href="#" onclick="navigateTo('/white-glove-delivery'); return false;">Learn More &#8594;</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="acc-item" data-acc>
+            <button class="acc-trigger" aria-expanded="false">
+              <span class="acc-num">03</span>
+              <span class="acc-sep">|</span>
+              <span class="acc-name">Pre-Owned Acquisition</span>
+              <span class="acc-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="acc-body">
+              <div class="acc-body-inner">
+                <p class="acc-desc">Authenticated luxury vehicles with full provenance. Every car is inspected to 212 points before we present it.</p>
+                <a class="acc-link" href="#" onclick="navigateTo('/pre-owned-acquisition'); return false;">View Collection &#8594;</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="acc-item" data-acc>
+            <button class="acc-trigger" aria-expanded="false">
+              <span class="acc-num">04</span>
+              <span class="acc-sep">|</span>
+              <span class="acc-name">Auto Repair</span>
+              <span class="acc-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="acc-body">
+              <div class="acc-body-inner">
+                <p class="acc-desc">Specialist technicians working exclusively with European and exotic marques. OEM parts. Full documentation.</p>
+                <a class="acc-link" href="#" onclick="navigateTo('/auto-repair'); return false;">The Workshop &#8594;</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="acc-item" data-acc>
+            <button class="acc-trigger" aria-expanded="false">
+              <span class="acc-num">05</span>
+              <span class="acc-sep">|</span>
+              <span class="acc-name">GPS &amp; Dash Cam</span>
+              <span class="acc-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="acc-body">
+              <div class="acc-body-inner">
+                <p class="acc-desc">Certified GPS tracking and 4K dash cam installations. Factory-finish concealment. Insurance-approved.</p>
+                <a class="acc-link" href="#" onclick="navigateTo('/gps-dash-cam'); return false;">The Intelligence &#8594;</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="acc-item" data-acc>
+            <button class="acc-trigger" aria-expanded="false">
+              <span class="acc-num">06</span>
+              <span class="acc-sep">|</span>
+              <span class="acc-name">Emergency Towing</span>
+              <span class="acc-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="acc-body">
+              <div class="acc-body-inner">
+                <p class="acc-desc">24/7 enclosed flatbed response across all five boroughs and the tristate area. No machine left behind.</p>
+                <a class="acc-link" href="#" onclick="navigateTo('/emergency-towing'); return false;">The Assurance &#8594;</a>
+              </div>
+            </div>
+          </div>
+
         </div>
 
-        <!-- RIGHT: vehicle image -->
-        <div class="services-accordion-img" aria-hidden="true">
-          <img src="assets/vehicle_1_1775158017269.png" alt="">
-          <div class="services-accordion-img-overlay"></div>
-        </div>
-
+        <a class="acc-footer-bar" href="#" onclick="navigateTo('/contact'); return false;">
+          <span>Make an Enquiry</span>
+          <span>&#8594;</span>
+        </a>
       </div>
-    </section>
 
-    <!-- FEATURED: THE FLEET -->
-    <section class="fleet-featured" data-reveal>
-      <div class="fleet-featured-img">
-        <img src="assets/vehicle_1_1775158017269.png" alt="Luxury vehicle from the fleet">
+      <div class="services-accordion-img" aria-hidden="true">
+        <img src="assets/vehicle_1_1775158017269.png" alt="">
+        <div class="services-accordion-img-overlay"></div>
       </div>
-      <div class="fleet-featured-text">
-        <p class="section-eyebrow">The Fleet</p>
-        <h2 class="section-heading">24 Bespoke<br>Vehicles.</h2>
-        <p>A curated selection of the world's most desirable automobiles, maintained to an impossible standard and available on your terms.</p>
-        <ul class="marque-list">
-          <li>Rolls-Royce</li>
-          <li>Lamborghini</li>
-          <li>Bentley</li>
-          <li>Ferrari</li>
-          <li>Porsche</li>
-          <li>Aston Martin</li>
-        </ul>
-        <a class="link-arrow" href="rental.html">View Full Fleet <span>&#8594;</span></a>
-      </div>
-    </section>
 
-    <!-- WHY NYC. EXOTIC -->
-    <section class="why-section">
-      <div class="container">
-        <p class="section-eyebrow" data-reveal>Why Choose Us</p>
-        <h2 class="section-heading" data-reveal>A Standard That<br>Does Not Bend.</h2>
-        <div class="why-list">
-          <div class="why-list-item" data-reveal>
-            <span class="why-list-num">01</span>
-            <div class="why-list-body">
-              <h3 class="why-list-title">Marque Specialists</h3>
-              <p class="why-list-desc">Every technician is trained specifically on the marques we service. Generalists do not touch our vehicles.</p>
-            </div>
-          </div>
-          <div class="why-list-item" data-reveal>
-            <span class="why-list-num">02</span>
-            <div class="why-list-body">
-              <h3 class="why-list-title">White-Glove Standard</h3>
-              <p class="why-list-desc">From the way we answer the phone to the way we return your car, every interaction is treated with the same care.</p>
-            </div>
-          </div>
-          <div class="why-list-item" data-reveal>
-            <span class="why-list-num">03</span>
-            <div class="why-list-body">
-              <h3 class="why-list-title">24/7 Availability</h3>
-              <p class="why-list-desc">Luxury does not keep office hours. Our team is available around the clock for every service we offer.</p>
-            </div>
-          </div>
-          <div class="why-list-item" data-reveal>
-            <span class="why-list-num">04</span>
-            <div class="why-list-body">
-              <h3 class="why-list-title">Citywide Coverage</h3>
-              <p class="why-list-desc">All five boroughs, New Jersey, and Connecticut. One call connects you to all six services, anywhere in the metro area.</p>
-            </div>
+    </div>
+  </section>
+
+  <!-- FEATURED: THE FLEET -->
+  <section class="fleet-featured" data-reveal>
+    <div class="fleet-featured-img">
+      <img src="assets/vehicle_1_1775158017269.png" alt="Luxury vehicle from the fleet">
+    </div>
+    <div class="fleet-featured-text">
+      <p class="section-eyebrow">The Fleet</p>
+      <h2 class="section-heading">24 Bespoke<br>Vehicles.</h2>
+      <p>A curated selection of the world's most desirable automobiles, maintained to an impossible standard and available on your terms.</p>
+      <ul class="marque-list">
+        <li>Rolls-Royce</li>
+        <li>Lamborghini</li>
+        <li>Bentley</li>
+        <li>Ferrari</li>
+        <li>Porsche</li>
+        <li>Aston Martin</li>
+      </ul>
+      <a class="link-arrow" href="#" onclick="navigateTo('/exotic-rental'); return false;">View Full Fleet <span>&#8594;</span></a>
+    </div>
+  </section>
+
+  <!-- WHY NYC. EXOTIC -->
+  <section class="why-section">
+    <div class="container">
+      <p class="section-eyebrow" data-reveal>Why Choose Us</p>
+      <h2 class="section-heading" data-reveal>A Standard That<br>Does Not Bend.</h2>
+      <div class="why-list">
+        <div class="why-list-item" data-reveal>
+          <span class="why-list-num">01</span>
+          <div class="why-list-body">
+            <h3 class="why-list-title">Marque Specialists</h3>
+            <p class="why-list-desc">Every technician is trained specifically on the marques we service. Generalists do not touch our vehicles.</p>
           </div>
         </div>
+        <div class="why-list-item" data-reveal>
+          <span class="why-list-num">02</span>
+          <div class="why-list-body">
+            <h3 class="why-list-title">White-Glove Standard</h3>
+            <p class="why-list-desc">From the way we answer the phone to the way we return your car, every interaction is treated with the same care.</p>
+          </div>
+        </div>
+        <div class="why-list-item" data-reveal>
+          <span class="why-list-num">03</span>
+          <div class="why-list-body">
+            <h3 class="why-list-title">24/7 Availability</h3>
+            <p class="why-list-desc">Luxury does not keep office hours. Our team is available around the clock for every service we offer.</p>
+          </div>
+        </div>
+        <div class="why-list-item" data-reveal>
+          <span class="why-list-num">04</span>
+          <div class="why-list-body">
+            <h3 class="why-list-title">Citywide Coverage</h3>
+            <p class="why-list-desc">All five boroughs, New Jersey, and Connecticut. One call connects you to all six services, anywhere in the metro area.</p>
+          </div>
+        </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- CTA BANNER -->
-    <section class="cta-banner" data-reveal>
-      <h2>Ready to Begin?</h2>
-      <p>Every client relationship starts with a single conversation. Tell us what you need.</p>
-      <a class="btn btn-gold" href="contact.html">Contact Us &#8594;</a>
-    </section>
+  <!-- CTA BANNER -->
+  <section class="cta-banner" data-reveal>
+    <h2>Ready to Begin?</h2>
+    <p>Every client relationship starts with a single conversation. Tell us what you need.</p>
+    <a class="btn btn-gold" href="#" onclick="navigateTo('/contact'); return false;">Contact Us &#8594;</a>
+  </section>
 
-  </main>
+</main>
 
-  <!-- Footer (injected by components.js) -->
-  <footer id="site-footer" class="site-footer"></footer>
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand-col">
+        <div class="footer-logo">NYC. EXOTIC</div>
+        <p class="footer-tagline">New York's complete automotive atelier. Six disciplines. One uncompromising standard.</p>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Services</div>
+        <a href="#" onclick="navigateTo('/exotic-rental'); return false;">Exotic Rental</a>
+        <a href="#" onclick="navigateTo('/white-glove-delivery'); return false;">White-Glove Delivery</a>
+        <a href="#" onclick="navigateTo('/pre-owned-acquisition'); return false;">Pre-Owned Vehicles</a>
+        <a href="#" onclick="navigateTo('/auto-repair'); return false;">Auto Repair</a>
+        <a href="#" onclick="navigateTo('/gps-dash-cam'); return false;">GPS &amp; Dash Cam</a>
+        <a href="#" onclick="navigateTo('/emergency-towing'); return false;">Emergency Towing</a>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Company</div>
+        <a href="#" onclick="navigateTo('/'); return false;">Home</a>
+        <a href="#" onclick="navigateTo('/pre-owned-acquisition'); return false;">Inventory</a>
+        <a href="#" onclick="navigateTo('/contact'); return false;">Contact</a>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Contact</div>
+        <address>
+          <p>New York City, NY</p>
+          <p><a href="#" onclick="window.top.location.href='tel:+12120000000'; return false;">+1 (212) 000-0000</a></p>
+          <p><a href="mailto:hello@nycexotic.com">hello@nycexotic.com</a></p>
+          <p style="margin-top:1rem;font-size:0.78rem;opacity:0.6">Available 24 / 7</p>
+        </address>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-copyright">&copy; 2025 NYC. EXOTIC. All rights reserved.</span>
+      <div class="footer-social">
+        <a href="#">Instagram</a>
+        <a href="#">LinkedIn</a>
+      </div>
+    </div>
+  </div>
+</footer>
 
-  <script src="components.js"></script>
-  <script src="app.js"></script>
+<script>
+/* === PARENT FRAME NAVIGATION === */
+const WIX_BASE = 'https://[wix-site-url]';
+function navigateTo(slug) {
+  if (window.self !== window.top) {
+    window.parent.postMessage({ type: 'wix-navigate', slug: slug }, '*');
+  } else {
+    window.location.href = WIX_BASE + slug;
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+
+  /* === ACTIVE PAGE HIGHLIGHT === */
+  const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('[data-page]').forEach(el => {
+    if (el.getAttribute('data-page') === currentPage) el.classList.add('is-active');
+  });
+
+  /* === NAV SCROLL STATE === */
+  const nav = document.getElementById('main-nav');
+  if (nav) {
+    const onScroll = () => nav.classList.toggle('is-scrolled', window.scrollY > 60);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  }
+
+  /* === HAMBURGER / MOBILE NAV === */
+  const hamburger = document.getElementById('hamburger');
+  const mobileNav = document.getElementById('mobile-nav');
+  if (hamburger && mobileNav) {
+    hamburger.addEventListener('click', () => {
+      const open = mobileNav.classList.toggle('is-open');
+      hamburger.classList.toggle('is-open', open);
+      mobileNav.setAttribute('aria-hidden', String(!open));
+      document.body.style.overflow = open ? 'hidden' : '';
+    });
+    mobileNav.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileNav.classList.remove('is-open');
+        hamburger.classList.remove('is-open');
+        mobileNav.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+      });
+    });
+  }
+
+  /* === SERVICES DROPDOWN === */
+  const dropTrigger = document.getElementById('dropdown-trigger');
+  const dropPanel = document.getElementById('dropdown-panel');
+  if (dropTrigger && dropPanel) {
+    dropTrigger.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const open = dropTrigger.getAttribute('aria-expanded') === 'true';
+      dropTrigger.setAttribute('aria-expanded', String(!open));
+      dropTrigger.closest('.nav-dropdown').classList.toggle('is-open', !open);
+    });
+    document.addEventListener('click', () => {
+      dropTrigger.setAttribute('aria-expanded', 'false');
+      dropTrigger.closest('.nav-dropdown')?.classList.remove('is-open');
+    });
+  }
+
+  /* === SMOOTH SCROLL === */
+  document.querySelectorAll('a[href^="#"]').forEach(link => {
+    link.addEventListener('click', e => {
+      const id = link.getAttribute('href');
+      if (id === '#') return;
+      const target = document.querySelector(id);
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+
+  /* === SERVICES ACCORDION === */
+  const accItems = document.querySelectorAll('[data-acc]');
+  accItems.forEach(item => {
+    const trigger = item.querySelector('.acc-trigger');
+    if (!trigger) return;
+    trigger.addEventListener('click', () => {
+      const isOpen = item.classList.contains('is-open');
+      accItems.forEach(i => {
+        i.classList.remove('is-open');
+        i.querySelector('.acc-trigger')?.setAttribute('aria-expanded', 'false');
+      });
+      if (!isOpen) {
+        item.classList.add('is-open');
+        trigger.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+
+  if (typeof gsap === 'undefined') return;
+  gsap.registerPlugin(ScrollTrigger);
+  gsap.config({ nullTargetWarn: false });
+
+  /* === HERO ENTRANCE === */
+  const heroImg = document.querySelector('.hero-img-col img');
+  const heroText = document.querySelector('.hero-text-col');
+  if (heroImg && heroText) {
+    const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+    tl.fromTo(heroImg, { scale: 1.08, opacity: 0 }, { scale: 1, opacity: 1, duration: 1.6 })
+      .fromTo(
+        heroText.querySelectorAll('.hero-eyebrow, .hero-title, .hero-desc, .hero-ctas, .hero-label'),
+        { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 1, stagger: 0.1 }, '-=1.0'
+      );
+  }
+
+  /* === PAGE HERO ENTRANCE (service pages) === */
+  const pageHero = document.querySelector('.page-hero');
+  if (pageHero) {
+    gsap.fromTo(
+      pageHero.querySelectorAll('.page-hero-breadcrumb, .page-hero h1, .page-hero-tagline'),
+      { opacity: 0, y: 20 },
+      { opacity: 1, y: 0, duration: 1, stagger: 0.12, ease: 'power3.out', delay: 0.3 }
+    );
+  }
+
+  /* === SCROLL REVEALS === */
+  document.querySelectorAll('[data-reveal]').forEach(el => {
+    gsap.fromTo(el, { opacity: 0, y: 36 }, {
+      opacity: 1, y: 0, duration: 0.9, ease: 'power2.out',
+      scrollTrigger: { trigger: el, start: 'top 84%', toggleActions: 'play none none none' }
+    });
+  });
+
+  document.querySelectorAll('[data-reveal-stagger]').forEach(parent => {
+    const children = parent.querySelectorAll(':scope > *');
+    gsap.fromTo(children, { opacity: 0, y: 32 }, {
+      opacity: 1, y: 0, duration: 0.85, stagger: 0.1, ease: 'power2.out',
+      scrollTrigger: { trigger: parent, start: 'top 82%', toggleActions: 'play none none none' }
+    });
+  });
+
+  ['.features-grid', '.process-steps', '.other-cards', '.fleet-grid',
+   '.inventory-grid', '.why-grid', '.packages-grid', '.marques-grid',
+   '.coverage-grid', '.response-stats'].forEach(selector => {
+    document.querySelectorAll(selector).forEach(grid => {
+      const items = grid.querySelectorAll(':scope > *');
+      if (!items.length) return;
+      gsap.fromTo(items, { opacity: 0, y: 30 }, {
+        opacity: 1, y: 0, duration: 0.75, stagger: 0.08, ease: 'power2.out',
+        scrollTrigger: { trigger: grid, start: 'top 82%', toggleActions: 'play none none none' }
+      });
+    });
+  });
+
+  /* === FLEET FEATURED PARALLAX === */
+  const featuredImg = document.querySelector('.fleet-featured-img img');
+  if (featuredImg) {
+    gsap.to(featuredImg, {
+      yPercent: -8, ease: 'none',
+      scrollTrigger: { trigger: '.fleet-featured', start: 'top bottom', end: 'bottom top', scrub: 1.5 }
+    });
+  }
+
+  /* === STATS COUNTERS === */
+  document.querySelectorAll('.stat-num').forEach(el => {
+    const text = el.textContent.trim();
+    const num = parseFloat(text.replace(/[^0-9.]/g, ''));
+    if (isNaN(num) || text.includes('/') || text.includes('<')) return;
+    const suffix = text.replace(/[0-9.]/g, '');
+    const obj = { val: 0 };
+    ScrollTrigger.create({
+      trigger: el, start: 'top 90%', once: true,
+      onEnter: () => {
+        gsap.to(obj, {
+          val: num, duration: 1.8, ease: 'power2.out',
+          onUpdate: () => {
+            el.textContent = (Number.isInteger(num) ? Math.round(obj.val) : obj.val.toFixed(1)) + suffix;
+          }
+        });
+      }
+    });
+  });
+
+  /* === EMERGENCY PHONE PULSE === */
+  const emergencyPhone = document.querySelector('.emergency-phone');
+  if (emergencyPhone) {
+    gsap.fromTo(emergencyPhone, { opacity: 0, scale: 0.94 },
+      { opacity: 1, scale: 1, duration: 1, ease: 'back.out(1.4)', delay: 0.5 });
+  }
+
+  /* === FORM SUBMIT === */
+  document.querySelectorAll('form').forEach(form => {
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      const required = form.querySelectorAll('[required]');
+      let valid = true;
+      required.forEach(field => {
+        if (!field.value.trim()) {
+          valid = false;
+          field.style.borderBottomColor = '#e05050';
+          field.addEventListener('input', () => { field.style.borderBottomColor = ''; }, { once: true });
+        }
+      });
+      if (valid) {
+        const btn = form.querySelector('button[type="submit"]');
+        if (btn) {
+          btn.textContent = 'Sent. We will be in touch.';
+          btn.disabled = true;
+          btn.style.background = '#3a8a5a';
+          btn.style.color = '#fff';
+        }
+      }
+    });
+  });
+
+});
+</script>
 </body>
 </html>

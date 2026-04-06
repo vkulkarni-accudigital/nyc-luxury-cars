@@ -4,217 +4,444 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>White-Glove Delivery | NYC. EXOTIC</title>
+  <meta name="description" content="Enclosed luxury vehicle transport across all five NYC boroughs, New Jersey, and Connecticut. Real-time tracking, photo documentation, and concierge handoff.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Outfit:wght@200;300;400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+  <style>
+:root{--bg:#FAF8F4;--surface:#F0EDE6;--surface-2:#E8E3D9;--text-primary:#111111;--text-secondary:#6B6858;--accent:#B8903A;--accent-dim:rgba(184,144,58,0.10);--border:rgba(0,0,0,0.10);--font-serif:'Cormorant Garamond',Georgia,serif;--font-sans:'Outfit',system-ui,sans-serif;--ease-out:cubic-bezier(0.16,1,0.3,1);--ease-in-out:cubic-bezier(0.76,0,0.24,1);--transition:0.35s var(--ease-out)}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text-primary);font-family:var(--font-sans);font-size:16px;line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+img{display:block;width:100%}
+a{color:inherit}
+button{font-family:var(--font-sans)}
+::selection{background:var(--accent);color:var(--bg)}
+h1,h2,h3,h4{font-family:var(--font-serif);font-weight:400;line-height:1}
+.container{max-width:1400px;margin-inline:auto;padding-inline:clamp(1.5rem,5vw,4rem)}
+.section-eyebrow{font-size:0.7rem;letter-spacing:0.28em;text-transform:uppercase;color:var(--accent);margin-bottom:1.25rem;font-family:var(--font-sans)}
+.section-heading{font-family:var(--font-serif);font-size:clamp(2.5rem,4.5vw,5rem);font-weight:300;letter-spacing:-0.015em;line-height:0.95;margin-bottom:1.25rem}
+.section-subtext{font-size:1rem;color:var(--text-secondary);line-height:1.75;max-width:520px}
+.divider{border:none;border-top:1px solid var(--border)}
+.section-container{padding-block:clamp(4rem,7vw,7rem)}
+.btn{display:inline-flex;align-items:center;gap:0.5rem;font-family:var(--font-sans);font-size:0.75rem;letter-spacing:0.14em;text-transform:uppercase;text-decoration:none;padding:0.85rem 2rem;cursor:pointer;border:none;transition:background var(--transition),color var(--transition),border-color var(--transition);white-space:nowrap}
+.btn-gold{background:var(--accent);color:var(--bg)}
+.btn-gold:hover{background:#d9ba80}
+.btn-outline{background:transparent;border:1px solid var(--border);color:var(--text-primary)}
+.btn-outline:hover{border-color:var(--accent);color:var(--accent)}
+.btn-full{width:100%;justify-content:center}
+.link-arrow{display:inline-flex;align-items:center;gap:0.5rem;font-size:0.72rem;letter-spacing:0.14em;text-transform:uppercase;text-decoration:none;color:var(--accent);border-bottom:1px solid transparent;padding-bottom:2px;transition:border-color var(--transition)}
+.link-arrow:hover{border-bottom-color:var(--accent)}
+.nav{position:fixed;inset-block-start:0;inset-inline:0;z-index:900;border-bottom:1px solid transparent;transition:background 0.4s,border-color 0.4s,backdrop-filter 0.4s}
+.nav.is-scrolled{background:rgba(250,248,244,0.96);border-bottom-color:var(--border);backdrop-filter:blur(12px)}
+.nav-container{max-width:1400px;margin-inline:auto;padding:1.4rem clamp(1.5rem,5vw,4rem);display:flex;align-items:center;gap:3rem}
+.nav-logo{font-family:var(--font-sans);font-size:0.95rem;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;text-decoration:none;color:var(--text-primary);flex-shrink:0}
+.nav-center{display:flex;align-items:center;gap:2.5rem;margin-inline:auto}
+.nav-link{font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-secondary);text-decoration:none;background:none;border:none;cursor:pointer;padding:0;display:flex;align-items:center;gap:0.3rem;transition:color var(--transition)}
+.nav-link:hover,.nav-link.is-active{color:var(--text-primary)}
+.nav-dropdown{position:relative}
+.nav-dropdown-trigger .arrow{font-size:0.6rem;transition:transform var(--transition)}
+.nav-dropdown:hover .arrow{transform:rotate(180deg)}
+.dropdown-panel{position:absolute;top:100%;left:50%;transform:translateX(-50%) translateY(-6px);min-width:230px;background:var(--surface);border:1px solid var(--border);padding:1rem 0 0.5rem;opacity:0;pointer-events:none;transition:opacity 0.22s,transform 0.22s}
+.nav-dropdown:hover .dropdown-panel,.nav-dropdown.is-open .dropdown-panel{opacity:1;pointer-events:all;transform:translateX(-50%) translateY(0)}
+.dropdown-panel a{display:block;padding:0.75rem 1.4rem;font-size:0.82rem;color:var(--text-secondary);text-decoration:none;letter-spacing:0.04em;transition:color 0.2s,background 0.2s}
+.dropdown-panel a:hover{color:var(--text-primary);background:rgba(255,255,255,0.03)}
+.nav-right{display:flex;align-items:center;gap:1.5rem;flex-shrink:0}
+.hamburger{display:none;flex-direction:column;justify-content:center;gap:5px;width:28px;height:24px;background:none;border:none;cursor:pointer;padding:0}
+.hamburger span{display:block;height:1px;background:var(--text-primary);transition:transform 0.3s,opacity 0.3s;transform-origin:center}
+.hamburger.is-open span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+.hamburger.is-open span:nth-child(2){opacity:0;transform:scaleX(0)}
+.hamburger.is-open span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+.mobile-nav{position:fixed;inset:0;background:var(--bg);z-index:899;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2rem;transform:translateX(100%);transition:transform 0.5s var(--ease-in-out)}
+.mobile-nav.is-open{transform:translateX(0)}
+.mobile-nav a{font-family:var(--font-serif);font-size:clamp(2rem,7vw,3.5rem);text-decoration:none;color:var(--text-secondary);transition:color 0.3s;text-align:center}
+.mobile-nav a:hover{color:var(--text-primary)}
+.mobile-nav .btn{font-family:var(--font-sans);font-size:0.75rem;margin-top:1rem}
+.page-hero{height:70vh;min-height:500px;position:relative;overflow:hidden;display:flex;align-items:flex-end}
+.page-hero-bg{position:absolute;inset:0}
+.page-hero-bg img{width:100%;height:100%;object-fit:cover;object-position:center}
+.page-hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,var(--bg) 0%,rgba(20,16,10,0.55) 45%,rgba(20,16,10,0.15) 100%)}
+.page-hero-content{position:relative;z-index:2;width:100%;padding-bottom:clamp(3rem,5vw,5rem)}
+.page-hero-breadcrumb{font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(250,248,244,0.65);margin-bottom:1.25rem}
+.page-hero-breadcrumb a{color:inherit;text-decoration:none}
+.page-hero-breadcrumb a:hover{color:var(--text-primary)}
+.page-hero-breadcrumb .sep{margin-inline:0.5rem;opacity:0.4}
+.page-hero h1{font-size:clamp(3rem,7vw,7rem);line-height:0.92;margin-bottom:1.25rem;color:#FAF8F4}
+.page-hero h1 em{font-style:italic;color:var(--accent)}
+.page-hero-tagline{font-size:1rem;color:rgba(250,248,244,0.72);max-width:480px;line-height:1.6}
+.overview-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(3rem,6vw,6rem);align-items:start}
+.overview-text p{font-size:1rem;color:var(--text-secondary);line-height:1.8;margin-bottom:1.5rem}
+.key-points{list-style:none;display:flex;flex-direction:column;gap:0.85rem;margin-top:1.5rem}
+.key-point{padding:1rem 1.25rem;border-left:2px solid var(--accent);background:var(--surface);font-size:0.9rem;color:var(--text-secondary);line-height:1.55}
+.highlight-card{background:var(--surface);border:1px solid var(--border);padding:2.5rem;position:sticky;top:6rem}
+.highlight-card-title{font-size:0.68rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--accent);margin-bottom:2rem;padding-bottom:1rem;border-bottom:1px solid var(--border)}
+.highlight-row{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;padding:0.9rem 0;border-bottom:1px solid var(--border)}
+.highlight-row:last-child{border-bottom:none}
+.highlight-row-label{font-size:0.78rem;color:var(--text-secondary);letter-spacing:0.05em}
+.highlight-row-val{font-family:var(--font-serif);font-size:1.05rem;color:var(--text-primary);text-align:right}
+.features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(1rem,1.5vw,1.5rem)}
+.feature-card{background:var(--surface);border:1px solid var(--border);border-top:2px solid transparent;padding:2.5rem;transition:border-top-color var(--transition),background var(--transition)}
+.feature-card:hover{border-top-color:var(--accent);background:var(--surface-2)}
+.feature-num{font-family:var(--font-serif);font-size:2rem;color:var(--accent);opacity:0.45;line-height:1;margin-bottom:1.5rem}
+.feature-title{font-family:var(--font-serif);font-size:1.4rem;margin-bottom:0.85rem}
+.feature-desc{font-size:0.87rem;color:var(--text-secondary);line-height:1.65}
+.process-section{border-top:1px solid var(--border)}
+.process-steps{display:grid;grid-template-columns:repeat(3,1fr);margin-top:clamp(2rem,4vw,4rem)}
+.process-step{padding:clamp(2rem,3vw,3rem);border:1px solid var(--border);border-left:none;position:relative}
+.process-step:first-child{border-left:1px solid var(--border)}
+.process-step-num{font-family:var(--font-serif);font-size:4.5rem;color:var(--accent);opacity:0.12;line-height:1;margin-bottom:1.5rem;display:block}
+.process-step-title{font-family:var(--font-serif);font-size:1.4rem;margin-bottom:0.75rem}
+.process-step-desc{font-size:0.87rem;color:var(--text-secondary);line-height:1.65}
+.other-services-section{background:var(--surface);border-top:1px solid var(--border);padding-block:clamp(4rem,7vw,7rem)}
+.other-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(1rem,1.5vw,1.5rem);margin-top:2.5rem}
+.other-card{background:var(--bg);border:1px solid var(--border);padding:2.5rem;text-decoration:none;display:flex;flex-direction:column;gap:0.75rem;transition:border-color var(--transition);cursor:pointer}
+.other-card:hover{border-color:var(--accent)}
+.other-card-title{font-family:var(--font-serif);font-size:1.5rem;color:var(--text-primary)}
+.other-card-desc{font-size:0.85rem;color:var(--text-secondary);line-height:1.6;flex-grow:1}
+.coverage-grid{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--border);margin-top:2.5rem}
+.coverage-item{padding:2rem;border-right:1px solid var(--border);border-bottom:1px solid var(--border)}
+.coverage-item:nth-child(3n){border-right:none}
+.coverage-item:nth-last-child(-n+3):nth-child(3n+1),.coverage-item:nth-last-child(-n+3):nth-child(3n+2),.coverage-item:nth-last-child(-n+3):nth-child(3n){border-bottom:none}
+.coverage-name{font-family:var(--font-serif);font-size:1.2rem;margin-bottom:0.4rem}
+.coverage-detail{font-size:0.8rem;color:var(--text-secondary);line-height:1.5}
+.site-footer{border-top:1px solid var(--border);padding:clamp(3rem,6vw,6rem) 0 2rem}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1.2fr;gap:clamp(2rem,4vw,5rem);margin-bottom:clamp(3rem,5vw,5rem)}
+.footer-logo{font-family:var(--font-sans);font-size:1rem;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-primary);margin-bottom:1rem}
+.footer-tagline{font-size:0.85rem;color:var(--text-secondary);line-height:1.7;max-width:240px}
+.footer-col-title{font-size:0.68rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-secondary);margin-bottom:1.5rem}
+.footer-col a{display:block;font-size:0.85rem;color:var(--text-secondary);text-decoration:none;margin-bottom:0.75rem;transition:color var(--transition)}
+.footer-col a:hover{color:var(--text-primary)}
+.footer-col address{font-style:normal}
+.footer-col address p{font-size:0.85rem;color:var(--text-secondary);line-height:1.6;margin-bottom:0.5rem}
+.footer-bottom{padding-top:2rem;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;gap:1rem}
+.footer-copyright{font-size:0.72rem;color:var(--text-secondary);letter-spacing:0.05em}
+.footer-social{display:flex;gap:1.5rem}
+.footer-social a{font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-secondary);text-decoration:none;transition:color var(--transition)}
+.footer-social a:hover{color:var(--accent)}
+@media(max-width:1024px){.footer-grid{grid-template-columns:1fr 1fr;gap:2.5rem}}
+@media(max-width:768px){.nav-center{display:none}.hamburger{display:flex}.nav-right .btn{display:none}.overview-grid{grid-template-columns:1fr}.highlight-card{position:static}.features-grid{grid-template-columns:1fr}.process-steps{grid-template-columns:1fr}.process-step{border-left:1px solid var(--border) !important;border-right:none;border-top:none}.process-step:first-child{border-top:1px solid var(--border)}.other-cards{grid-template-columns:1fr}.coverage-grid{grid-template-columns:repeat(2,1fr)}.coverage-item:nth-child(2n){border-right:none}.footer-grid{grid-template-columns:1fr}.footer-bottom{flex-direction:column;gap:1rem;text-align:center}}
+@media(max-width:480px){.coverage-grid{grid-template-columns:1fr}.coverage-item{border-right:none !important}}
+.in-iframe #main-nav,.in-iframe #mobile-nav,.in-iframe .site-footer{display:none !important}
+  </style>
 </head>
 <body>
+<script>if (window.self !== window.top) document.documentElement.classList.add('in-iframe');</script>
 
-  <div id="site-nav"></div>
-
-  <main>
-
-    <!-- PAGE HERO -->
-    <section class="page-hero">
-      <div class="page-hero-bg">
-        <img src="assets/vehicle_1_1775158017269.png" alt="White-glove delivery vehicle" style="filter:grayscale(40%) sepia(0.15) contrast(1.1);">
-      </div>
-      <div class="page-hero-overlay"></div>
-      <div class="page-hero-content container">
-        <div class="page-hero-breadcrumb">
-          <a href="index.html">Home</a>
-          <span class="sep">/</span>
-          White-Glove Delivery
+<nav class="nav" id="main-nav">
+  <div class="nav-container">
+    <a class="nav-logo" href="#" onclick="navigateTo('/'); return false;" data-page="index.html">NYC. EXOTIC</a>
+    <div class="nav-center">
+      <div class="nav-dropdown">
+        <button class="nav-link nav-dropdown-trigger" id="dropdown-trigger" aria-haspopup="true" aria-expanded="false">Services <span class="arrow">&#9660;</span></button>
+        <div class="dropdown-panel" id="dropdown-panel" role="menu">
+          <a href="#" onclick="navigateTo('/exotic-rental'); return false;" class="dropdown-link" data-page="rental.html">Exotic Rental</a>
+          <a href="#" onclick="navigateTo('/white-glove-delivery'); return false;" class="dropdown-link" data-page="delivery.html">White-Glove Delivery</a>
+          <a href="#" onclick="navigateTo('/pre-owned-acquisition'); return false;" class="dropdown-link" data-page="acquisition.html">Pre-Owned Vehicles</a>
+          <a href="#" onclick="navigateTo('/auto-repair'); return false;" class="dropdown-link" data-page="repair.html">Auto Repair</a>
+          <a href="#" onclick="navigateTo('/gps-dash-cam'); return false;" class="dropdown-link" data-page="intelligence.html">GPS &amp; Dash Cam</a>
+          <a href="#" onclick="navigateTo('/emergency-towing'); return false;" class="dropdown-link" data-page="towing.html">Emergency Towing</a>
         </div>
-        <h1>White-Glove<br><em>Delivery.</em></h1>
-        <p class="page-hero-tagline">Your vehicle. Your address. Delivered with the care it deserves.</p>
       </div>
-    </section>
+      <a class="nav-link" href="#" onclick="navigateTo('/exotic-rental'); return false;" data-page="rental.html">Fleet</a>
+      <a class="nav-link" href="#" onclick="navigateTo('/pre-owned-acquisition'); return false;" data-page="acquisition.html">Acquire</a>
+      <a class="nav-link" href="#" onclick="navigateTo('/contact'); return false;" data-page="contact.html">Contact</a>
+    </div>
+    <div class="nav-right">
+      <a class="btn btn-gold" href="#" onclick="navigateTo('/contact'); return false;">Book Now</a>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</nav>
 
-    <!-- OVERVIEW -->
-    <section class="section-container container">
-      <div class="overview-grid" data-reveal>
-        <div class="overview-text">
-          <p class="section-eyebrow">The Service</p>
-          <h2 class="section-heading" style="margin-bottom:1.5rem;">Precision<br>Transport.</h2>
-          <p>Moving a luxury vehicle is not a logistics problem. It is a trust exercise. Our white-glove delivery service treats every vehicle as if it were irreplaceable, because to our clients, it often is.</p>
-          <p>We operate an enclosed flatbed fleet servicing the entire NYC metro area. Every driver is trained in exotic vehicle handling protocols. Every delivery is documented with pre- and post-transport photography, so you know exactly what we received and exactly what we returned.</p>
-          <ul class="key-points" style="margin-top:2rem;">
-            <li class="key-point">Enclosed transport only - no open carriers, ever</li>
-            <li class="key-point">Real-time tracking from pickup to delivery</li>
-            <li class="key-point">Concierge handoff with full vehicle walkthrough</li>
-          </ul>
-        </div>
-        <div>
-          <div class="highlight-card">
-            <div class="highlight-card-title">Delivery at a Glance</div>
-            <div class="highlight-row">
-              <span class="highlight-row-label">Coverage</span>
-              <span class="highlight-row-val">All 5 Boroughs</span>
-            </div>
-            <div class="highlight-row">
-              <span class="highlight-row-label">Tristate</span>
-              <span class="highlight-row-val">NJ + CT Included</span>
-            </div>
-            <div class="highlight-row">
-              <span class="highlight-row-label">Transport Type</span>
-              <span class="highlight-row-val">Enclosed Only</span>
-            </div>
-            <div class="highlight-row">
-              <span class="highlight-row-label">Tracking</span>
-              <span class="highlight-row-val">Real-Time</span>
-            </div>
-            <div class="highlight-row">
-              <span class="highlight-row-label">Documentation</span>
-              <span class="highlight-row-val">Full Photo Record</span>
-            </div>
-            <div class="highlight-row">
-              <span class="highlight-row-label">Availability</span>
-              <span class="highlight-row-val">24 / 7</span>
-            </div>
-            <div style="margin-top:2rem;">
-              <a class="btn btn-gold btn-full" href="contact.html">Schedule Delivery</a>
-            </div>
+<div class="mobile-nav" id="mobile-nav" aria-hidden="true">
+  <a href="#" onclick="navigateTo('/'); return false;" data-page="index.html">Home</a>
+  <a href="#" onclick="navigateTo('/exotic-rental'); return false;" data-page="rental.html">Exotic Rental</a>
+  <a href="#" onclick="navigateTo('/white-glove-delivery'); return false;" data-page="delivery.html">White-Glove Delivery</a>
+  <a href="#" onclick="navigateTo('/pre-owned-acquisition'); return false;" data-page="acquisition.html">Pre-Owned Vehicles</a>
+  <a href="#" onclick="navigateTo('/auto-repair'); return false;" data-page="repair.html">Auto Repair</a>
+  <a href="#" onclick="navigateTo('/gps-dash-cam'); return false;" data-page="intelligence.html">GPS &amp; Dash Cam</a>
+  <a href="#" onclick="navigateTo('/emergency-towing'); return false;" data-page="towing.html">Emergency Towing</a>
+  <a href="#" onclick="navigateTo('/contact'); return false;" data-page="contact.html">Contact</a>
+  <a class="btn btn-gold" href="#" onclick="navigateTo('/contact'); return false;">Book Now</a>
+</div>
+
+<main>
+
+  <section class="page-hero">
+    <div class="page-hero-bg">
+      <img src="assets/vehicle_1_1775158017269.png" alt="White-glove delivery vehicle" style="filter:grayscale(40%) sepia(0.15) contrast(1.1);">
+    </div>
+    <div class="page-hero-overlay"></div>
+    <div class="page-hero-content container">
+      <div class="page-hero-breadcrumb">
+        <a href="#" onclick="navigateTo('/'); return false;">Home</a>
+        <span class="sep">/</span>
+        White-Glove Delivery
+      </div>
+      <h1>White-Glove<br><em>Delivery.</em></h1>
+      <p class="page-hero-tagline">Your vehicle. Your address. Delivered with the care it deserves.</p>
+    </div>
+  </section>
+
+  <section class="section-container container">
+    <div class="overview-grid" data-reveal>
+      <div class="overview-text">
+        <p class="section-eyebrow">The Service</p>
+        <h2 class="section-heading" style="margin-bottom:1.5rem;">Precision<br>Transport.</h2>
+        <p>Moving a luxury vehicle is not a logistics problem. It is a trust exercise. Our white-glove delivery service treats every vehicle as if it were irreplaceable, because to our clients, it often is.</p>
+        <p>We operate an enclosed flatbed fleet servicing the entire NYC metro area. Every driver is trained in exotic vehicle handling protocols. Every delivery is documented with pre- and post-transport photography, so you know exactly what we received and exactly what we returned.</p>
+        <ul class="key-points" style="margin-top:2rem;">
+          <li class="key-point">Enclosed transport only - no open carriers, ever</li>
+          <li class="key-point">Real-time tracking from pickup to delivery</li>
+          <li class="key-point">Concierge handoff with full vehicle walkthrough</li>
+        </ul>
+      </div>
+      <div>
+        <div class="highlight-card">
+          <div class="highlight-card-title">Delivery at a Glance</div>
+          <div class="highlight-row"><span class="highlight-row-label">Coverage</span><span class="highlight-row-val">All 5 Boroughs</span></div>
+          <div class="highlight-row"><span class="highlight-row-label">Tristate</span><span class="highlight-row-val">NJ + CT Included</span></div>
+          <div class="highlight-row"><span class="highlight-row-label">Transport Type</span><span class="highlight-row-val">Enclosed Only</span></div>
+          <div class="highlight-row"><span class="highlight-row-label">Tracking</span><span class="highlight-row-val">Real-Time</span></div>
+          <div class="highlight-row"><span class="highlight-row-label">Documentation</span><span class="highlight-row-val">Full Photo Record</span></div>
+          <div class="highlight-row"><span class="highlight-row-label">Availability</span><span class="highlight-row-val">24 / 7</span></div>
+          <div style="margin-top:2rem;">
+            <a class="btn btn-gold btn-full" href="#" onclick="navigateTo('/contact'); return false;">Schedule Delivery</a>
           </div>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <hr class="divider">
+  <hr class="divider">
 
-    <!-- FEATURES -->
-    <section class="section-container container">
-      <p class="section-eyebrow" data-reveal>What We Include</p>
-      <h2 class="section-heading" data-reveal>Built Around<br>Your Vehicle.</h2>
-      <div class="features-grid" style="margin-top:2.5rem;">
-        <div class="feature-card">
-          <div class="feature-num">01</div>
-          <h3 class="feature-title">Enclosed Transport</h3>
-          <p class="feature-desc">Every vehicle travels inside a fully enclosed carrier. No exposure to weather, road debris, or prying eyes.</p>
-        </div>
-        <div class="feature-card">
-          <div class="feature-num">02</div>
-          <h3 class="feature-title">Photo Documentation</h3>
-          <p class="feature-desc">We photograph every panel, wheel, and interior surface before loading and after unloading. A complete record every time.</p>
-        </div>
-        <div class="feature-card">
-          <div class="feature-num">03</div>
-          <h3 class="feature-title">Concierge Handoff</h3>
-          <p class="feature-desc">Your vehicle is not dropped and driven away. Our driver walks you through the delivery, confirms condition, and completes paperwork with you.</p>
-        </div>
+  <section class="section-container container">
+    <p class="section-eyebrow" data-reveal>What We Include</p>
+    <h2 class="section-heading" data-reveal>Built Around<br>Your Vehicle.</h2>
+    <div class="features-grid" style="margin-top:2.5rem;">
+      <div class="feature-card">
+        <div class="feature-num">01</div>
+        <h3 class="feature-title">Enclosed Transport</h3>
+        <p class="feature-desc">Every vehicle travels inside a fully enclosed carrier. No exposure to weather, road debris, or prying eyes.</p>
       </div>
-    </section>
-
-    <hr class="divider">
-
-    <!-- PROCESS -->
-    <section class="process-section section-container container">
-      <p class="section-eyebrow" data-reveal>How It Works</p>
-      <h2 class="section-heading" data-reveal>From Call<br>to Keys.</h2>
-      <div class="process-steps">
-        <div class="process-step">
-          <span class="process-step-num">01</span>
-          <h3 class="process-step-title">Book and Confirm</h3>
-          <p class="process-step-desc">Tell us the pickup address, delivery address, and your preferred time window. We confirm availability and assign a driver within the hour.</p>
-        </div>
-        <div class="process-step">
-          <span class="process-step-num">02</span>
-          <h3 class="process-step-title">Pickup and Load</h3>
-          <p class="process-step-desc">Our driver arrives with an enclosed transporter, photographs the vehicle comprehensively, and loads it using soft-tie systems with zero chassis contact.</p>
-        </div>
-        <div class="process-step">
-          <span class="process-step-num">03</span>
-          <h3 class="process-step-title">Deliver and Confirm</h3>
-          <p class="process-step-desc">We deliver to your specified location, unload with the same care, walk you through the condition report, and hand over the keys. Done.</p>
-        </div>
+      <div class="feature-card">
+        <div class="feature-num">02</div>
+        <h3 class="feature-title">Photo Documentation</h3>
+        <p class="feature-desc">We photograph every panel, wheel, and interior surface before loading and after unloading. A complete record every time.</p>
       </div>
-    </section>
-
-    <hr class="divider">
-
-    <!-- COVERAGE AREA -->
-    <section class="section-container container">
-      <p class="section-eyebrow" data-reveal>Coverage</p>
-      <h2 class="section-heading" data-reveal>We Cover<br>the Metro.</h2>
-      <p class="section-subtext" style="margin-bottom:2.5rem;" data-reveal>One call connects you to delivery service across the entire New York metropolitan area.</p>
-      <div class="coverage-grid">
-        <div class="coverage-item">
-          <div class="coverage-name">Manhattan</div>
-          <p class="coverage-detail">Full island coverage. Midtown, Uptown, Downtown, and all neighborhoods in between.</p>
-        </div>
-        <div class="coverage-item">
-          <div class="coverage-name">Brooklyn</div>
-          <p class="coverage-detail">All of Brooklyn including DUMBO, Williamsburg, Park Slope, and Brooklyn Heights.</p>
-        </div>
-        <div class="coverage-item">
-          <div class="coverage-name">Queens</div>
-          <p class="coverage-detail">JFK and LaGuardia adjacent pickups and deliveries. All residential neighborhoods.</p>
-        </div>
-        <div class="coverage-item">
-          <div class="coverage-name">The Bronx</div>
-          <p class="coverage-detail">Full borough coverage from Riverdale to the South Bronx.</p>
-        </div>
-        <div class="coverage-item">
-          <div class="coverage-name">Staten Island</div>
-          <p class="coverage-detail">Complete coverage via Goethals and Outerbridge crossings.</p>
-        </div>
-        <div class="coverage-item">
-          <div class="coverage-name">New Jersey</div>
-          <p class="coverage-detail">Northern and Central NJ. Newark, Hoboken, Jersey City, and surrounding areas.</p>
-        </div>
-        <div class="coverage-item">
-          <div class="coverage-name">Connecticut</div>
-          <p class="coverage-detail">Fairfield County and greater Hartford. Greenwich, Stamford, and Westport corridors.</p>
-        </div>
-        <div class="coverage-item">
-          <div class="coverage-name">Westchester</div>
-          <p class="coverage-detail">White Plains, Scarsdale, Bronxville, and all Westchester municipalities.</p>
-        </div>
+      <div class="feature-card">
+        <div class="feature-num">03</div>
+        <h3 class="feature-title">Concierge Handoff</h3>
+        <p class="feature-desc">Your vehicle is not dropped and driven away. Our driver walks you through the delivery, confirms condition, and completes paperwork with you.</p>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- OTHER SERVICES -->
-    <section class="other-services-section">
-      <div class="container">
-        <p class="section-eyebrow" data-reveal>Also Available</p>
-        <h2 class="section-heading" data-reveal>Explore Our<br>Other Services.</h2>
-        <div class="other-cards">
-          <a class="other-card" href="rental.html">
-            <div class="other-card-title">Exotic Rental</div>
-            <p class="other-card-desc">Drive the world's finest machines by the day, week, or month.</p>
-            <span class="link-arrow">Explore Fleet &#8594;</span>
-          </a>
-          <a class="other-card" href="repair.html">
-            <div class="other-card-title">Auto Repair</div>
-            <p class="other-card-desc">Specialist repair for European and exotic vehicles. OEM parts only.</p>
-            <span class="link-arrow">The Workshop &#8594;</span>
-          </a>
-          <a class="other-card" href="towing.html">
-            <div class="other-card-title">Emergency Towing</div>
-            <p class="other-card-desc">24/7 enclosed flatbed response across all five boroughs.</p>
-            <span class="link-arrow">The Assurance &#8594;</span>
-          </a>
-        </div>
+  <hr class="divider">
+
+  <section class="process-section section-container container">
+    <p class="section-eyebrow" data-reveal>How It Works</p>
+    <h2 class="section-heading" data-reveal>From Call<br>to Keys.</h2>
+    <div class="process-steps">
+      <div class="process-step">
+        <span class="process-step-num">01</span>
+        <h3 class="process-step-title">Book and Confirm</h3>
+        <p class="process-step-desc">Tell us the pickup address, delivery address, and your preferred time window. We confirm availability and assign a driver within the hour.</p>
       </div>
-    </section>
-
-    <!-- PAGE CTA -->
-    <section class="section-container container">
-      <div data-reveal>
-        <p class="section-eyebrow">Book</p>
-        <h2 class="section-heading">Schedule Your Delivery.</h2>
-        <p class="section-subtext" style="margin-bottom:2rem;">Tell us the pickup point, the destination, and your preferred window. We handle everything else.</p>
-        <a class="btn btn-gold" href="contact.html">Make an Enquiry &#8594;</a>
+      <div class="process-step">
+        <span class="process-step-num">02</span>
+        <h3 class="process-step-title">Pickup and Load</h3>
+        <p class="process-step-desc">Our driver arrives with an enclosed transporter, photographs the vehicle comprehensively, and loads it using soft-tie systems with zero chassis contact.</p>
       </div>
-    </section>
+      <div class="process-step">
+        <span class="process-step-num">03</span>
+        <h3 class="process-step-title">Deliver and Confirm</h3>
+        <p class="process-step-desc">We deliver to your specified location, unload with the same care, walk you through the condition report, and hand over the keys. Done.</p>
+      </div>
+    </div>
+  </section>
 
-  </main>
+  <hr class="divider">
 
-  <footer id="site-footer" class="site-footer"></footer>
-  <script src="components.js"></script>
-  <script src="app.js"></script>
+  <section class="section-container container">
+    <p class="section-eyebrow" data-reveal>Coverage</p>
+    <h2 class="section-heading" data-reveal>We Cover<br>the Metro.</h2>
+    <p class="section-subtext" style="margin-bottom:2.5rem;" data-reveal>One call connects you to delivery service across the entire New York metropolitan area.</p>
+    <div class="coverage-grid">
+      <div class="coverage-item"><div class="coverage-name">Manhattan</div><p class="coverage-detail">Full island coverage. Midtown, Uptown, Downtown, and all neighborhoods in between.</p></div>
+      <div class="coverage-item"><div class="coverage-name">Brooklyn</div><p class="coverage-detail">All of Brooklyn including DUMBO, Williamsburg, Park Slope, and Brooklyn Heights.</p></div>
+      <div class="coverage-item"><div class="coverage-name">Queens</div><p class="coverage-detail">JFK and LaGuardia adjacent pickups and deliveries. All residential neighborhoods.</p></div>
+      <div class="coverage-item"><div class="coverage-name">The Bronx</div><p class="coverage-detail">Full borough coverage from Riverdale to the South Bronx.</p></div>
+      <div class="coverage-item"><div class="coverage-name">Staten Island</div><p class="coverage-detail">Complete coverage via Goethals and Outerbridge crossings.</p></div>
+      <div class="coverage-item"><div class="coverage-name">New Jersey</div><p class="coverage-detail">Northern and Central NJ. Newark, Hoboken, Jersey City, and surrounding areas.</p></div>
+      <div class="coverage-item"><div class="coverage-name">Connecticut</div><p class="coverage-detail">Fairfield County and greater Hartford. Greenwich, Stamford, and Westport corridors.</p></div>
+      <div class="coverage-item"><div class="coverage-name">Westchester</div><p class="coverage-detail">White Plains, Scarsdale, Bronxville, and all Westchester municipalities.</p></div>
+    </div>
+  </section>
+
+  <section class="other-services-section">
+    <div class="container">
+      <p class="section-eyebrow" data-reveal>Also Available</p>
+      <h2 class="section-heading" data-reveal>Explore Our<br>Other Services.</h2>
+      <div class="other-cards">
+        <a class="other-card" href="#" onclick="navigateTo('/exotic-rental'); return false;">
+          <div class="other-card-title">Exotic Rental</div>
+          <p class="other-card-desc">Drive the world's finest machines by the day, week, or month.</p>
+          <span class="link-arrow">Explore Fleet &#8594;</span>
+        </a>
+        <a class="other-card" href="#" onclick="navigateTo('/auto-repair'); return false;">
+          <div class="other-card-title">Auto Repair</div>
+          <p class="other-card-desc">Specialist repair for European and exotic vehicles. OEM parts only.</p>
+          <span class="link-arrow">The Workshop &#8594;</span>
+        </a>
+        <a class="other-card" href="#" onclick="navigateTo('/emergency-towing'); return false;">
+          <div class="other-card-title">Emergency Towing</div>
+          <p class="other-card-desc">24/7 enclosed flatbed response across all five boroughs.</p>
+          <span class="link-arrow">The Assurance &#8594;</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-container container">
+    <div data-reveal>
+      <p class="section-eyebrow">Book</p>
+      <h2 class="section-heading">Schedule Your Delivery.</h2>
+      <p class="section-subtext" style="margin-bottom:2rem;">Tell us the pickup point, the destination, and your preferred window. We handle everything else.</p>
+      <a class="btn btn-gold" href="#" onclick="navigateTo('/contact'); return false;">Make an Enquiry &#8594;</a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand-col">
+        <div class="footer-logo">NYC. EXOTIC</div>
+        <p class="footer-tagline">New York's complete automotive atelier. Six disciplines. One uncompromising standard.</p>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Services</div>
+        <a href="#" onclick="navigateTo('/exotic-rental'); return false;">Exotic Rental</a>
+        <a href="#" onclick="navigateTo('/white-glove-delivery'); return false;">White-Glove Delivery</a>
+        <a href="#" onclick="navigateTo('/pre-owned-acquisition'); return false;">Pre-Owned Vehicles</a>
+        <a href="#" onclick="navigateTo('/auto-repair'); return false;">Auto Repair</a>
+        <a href="#" onclick="navigateTo('/gps-dash-cam'); return false;">GPS &amp; Dash Cam</a>
+        <a href="#" onclick="navigateTo('/emergency-towing'); return false;">Emergency Towing</a>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Company</div>
+        <a href="#" onclick="navigateTo('/'); return false;">Home</a>
+        <a href="#" onclick="navigateTo('/pre-owned-acquisition'); return false;">Inventory</a>
+        <a href="#" onclick="navigateTo('/contact'); return false;">Contact</a>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Contact</div>
+        <address>
+          <p>New York City, NY</p>
+          <p><a href="#" onclick="window.top.location.href='tel:+12120000000'; return false;">+1 (212) 000-0000</a></p>
+          <p><a href="mailto:hello@nycexotic.com">hello@nycexotic.com</a></p>
+          <p style="margin-top:1rem;font-size:0.78rem;opacity:0.6">Available 24 / 7</p>
+        </address>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-copyright">&copy; 2025 NYC. EXOTIC. All rights reserved.</span>
+      <div class="footer-social"><a href="#">Instagram</a><a href="#">LinkedIn</a></div>
+    </div>
+  </div>
+</footer>
+
+<script>
+const WIX_BASE = 'https://[wix-site-url]';
+function navigateTo(slug) {
+  if (window.self !== window.top) {
+    window.parent.postMessage({ type: 'wix-navigate', slug: slug }, '*');
+  } else {
+    window.location.href = WIX_BASE + slug;
+  }
+}
+document.addEventListener('DOMContentLoaded', () => {
+  const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('[data-page]').forEach(el => {
+    if (el.getAttribute('data-page') === currentPage) el.classList.add('is-active');
+  });
+  const nav = document.getElementById('main-nav');
+  if (nav) {
+    const onScroll = () => nav.classList.toggle('is-scrolled', window.scrollY > 60);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  }
+  const hamburger = document.getElementById('hamburger');
+  const mobileNav = document.getElementById('mobile-nav');
+  if (hamburger && mobileNav) {
+    hamburger.addEventListener('click', () => {
+      const open = mobileNav.classList.toggle('is-open');
+      hamburger.classList.toggle('is-open', open);
+      mobileNav.setAttribute('aria-hidden', String(!open));
+      document.body.style.overflow = open ? 'hidden' : '';
+    });
+    mobileNav.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileNav.classList.remove('is-open');
+        hamburger.classList.remove('is-open');
+        mobileNav.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+      });
+    });
+  }
+  const dropTrigger = document.getElementById('dropdown-trigger');
+  if (dropTrigger) {
+    dropTrigger.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const open = dropTrigger.getAttribute('aria-expanded') === 'true';
+      dropTrigger.setAttribute('aria-expanded', String(!open));
+      dropTrigger.closest('.nav-dropdown').classList.toggle('is-open', !open);
+    });
+    document.addEventListener('click', () => {
+      dropTrigger.setAttribute('aria-expanded', 'false');
+      dropTrigger.closest('.nav-dropdown')?.classList.remove('is-open');
+    });
+  }
+  document.querySelectorAll('a[href^="#"]').forEach(link => {
+    link.addEventListener('click', e => {
+      const id = link.getAttribute('href');
+      if (id === '#') return;
+      const target = document.querySelector(id);
+      if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+    });
+  });
+  if (typeof gsap === 'undefined') return;
+  gsap.registerPlugin(ScrollTrigger);
+  gsap.config({ nullTargetWarn: false });
+  const pageHero = document.querySelector('.page-hero');
+  if (pageHero) {
+    gsap.fromTo(
+      pageHero.querySelectorAll('.page-hero-breadcrumb, .page-hero h1, .page-hero-tagline'),
+      { opacity: 0, y: 20 },
+      { opacity: 1, y: 0, duration: 1, stagger: 0.12, ease: 'power3.out', delay: 0.3 }
+    );
+  }
+  document.querySelectorAll('[data-reveal]').forEach(el => {
+    gsap.fromTo(el, { opacity: 0, y: 36 }, {
+      opacity: 1, y: 0, duration: 0.9, ease: 'power2.out',
+      scrollTrigger: { trigger: el, start: 'top 84%', toggleActions: 'play none none none' }
+    });
+  });
+  ['.features-grid', '.process-steps', '.other-cards', '.coverage-grid'].forEach(selector => {
+    document.querySelectorAll(selector).forEach(grid => {
+      const items = grid.querySelectorAll(':scope > *');
+      if (!items.length) return;
+      gsap.fromTo(items, { opacity: 0, y: 30 }, {
+        opacity: 1, y: 0, duration: 0.75, stagger: 0.08, ease: 'power2.out',
+        scrollTrigger: { trigger: grid, start: 'top 82%', toggleActions: 'play none none none' }
+      });
+    });
+  });
+});
+</script>
 </body>
 </html>
