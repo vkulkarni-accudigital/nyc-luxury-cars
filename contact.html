@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact | NYC. EXOTIC</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Outfit:wght@200;300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" defer></script>
+</head>
+<body>
+
+  <div id="site-nav"></div>
+
+  <main>
+
+    <!-- PAGE HERO (shorter) -->
+    <section class="page-hero page-hero-short">
+      <div class="page-hero-bg">
+        <img src="assets/hero_dark_1775157985008.png" alt="NYC. EXOTIC contact" style="filter:grayscale(30%) contrast(1.05);">
+      </div>
+      <div class="page-hero-overlay"></div>
+      <div class="page-hero-content container">
+        <div class="page-hero-breadcrumb">
+          <a href="index.html">Home</a>
+          <span class="sep">/</span>
+          Contact
+        </div>
+        <h1>Begin the<br><em>Conversation.</em></h1>
+        <p class="page-hero-tagline">Every client relationship starts with a single enquiry. Tell us what you need.</p>
+      </div>
+    </section>
+
+    <!-- CONTACT BODY -->
+    <section class="section-container container">
+      <div class="contact-layout" data-reveal>
+
+        <!-- FORM -->
+        <div>
+          <p class="section-eyebrow">Send an Enquiry</p>
+          <h2 class="section-heading" style="margin-bottom:2rem;">How Can We<br>Help You?</h2>
+          <form class="full-form" novalidate>
+            <div class="form-row-2">
+              <div class="form-group">
+                <label for="contact-name">Full Name</label>
+                <input type="text" id="contact-name" name="name" placeholder="Your name" required>
+              </div>
+              <div class="form-group">
+                <label for="contact-email">Email Address</label>
+                <input type="email" id="contact-email" name="email" placeholder="your@email.com" required>
+              </div>
+            </div>
+            <div class="form-row-2">
+              <div class="form-group">
+                <label for="contact-phone">Phone Number</label>
+                <input type="tel" id="contact-phone" name="phone" placeholder="+1 (212) 000-0000">
+              </div>
+              <div class="form-group">
+                <label for="contact-service">Service of Interest</label>
+                <select id="contact-service" name="service">
+                  <option value="" disabled selected>Select a service</option>
+                  <option value="rental">Exotic Rental</option>
+                  <option value="delivery">White-Glove Delivery</option>
+                  <option value="acquisition">Pre-Owned Acquisition</option>
+                  <option value="repair">Auto Repair</option>
+                  <option value="intelligence">GPS &amp; Dash Cam</option>
+                  <option value="towing">Emergency Towing</option>
+                  <option value="general">General Enquiry</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="contact-message">Your Message</label>
+              <textarea id="contact-message" name="message" rows="6" placeholder="Tell us about your requirements..." required></textarea>
+            </div>
+            <div>
+              <button class="btn btn-gold" type="submit" style="width:100%;justify-content:center;">
+                Send Enquiry &#8594;
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- CONTACT INFO -->
+        <div>
+          <div class="contact-info-card">
+            <div class="contact-info-card-title">Get in Touch</div>
+            <div class="contact-info-item">
+              <div class="contact-info-label">Phone</div>
+              <div class="contact-info-value"><a href="tel:+12120000000">+1 (212) 000-0000</a></div>
+            </div>
+            <div class="contact-info-item">
+              <div class="contact-info-label">Email</div>
+              <div class="contact-info-value"><a href="mailto:hello@nycexotic.com">hello@nycexotic.com</a></div>
+            </div>
+            <div class="contact-info-item">
+              <div class="contact-info-label">Location</div>
+              <div class="contact-info-value">New York City, NY</div>
+            </div>
+            <div class="contact-info-item">
+              <div class="contact-info-label">Hours</div>
+              <div class="contact-info-value">24 / 7</div>
+            </div>
+          </div>
+
+          <div class="contact-info-card" style="margin-top:1.5rem;position:static;">
+            <div class="contact-info-card-title">Emergency Towing</div>
+            <p style="font-size:0.88rem;color:var(--text-secondary);margin-bottom:1.5rem;line-height:1.6;">For immediate roadside assistance or emergency towing, call our dedicated dispatch line directly. We answer at all hours.</p>
+            <a class="btn btn-gold btn-full" href="tel:+12120000000">Call Emergency Line</a>
+          </div>
+
+          <div class="contact-info-card" style="margin-top:1.5rem;position:static;">
+            <div class="contact-info-card-title">Our Services</div>
+            <div style="display:flex;flex-direction:column;gap:0.75rem;margin-top:0.5rem;">
+              <a href="rental.html" class="link-arrow" style="font-size:0.78rem;">Exotic Rental &#8594;</a>
+              <a href="delivery.html" class="link-arrow" style="font-size:0.78rem;">White-Glove Delivery &#8594;</a>
+              <a href="acquisition.html" class="link-arrow" style="font-size:0.78rem;">Pre-Owned Acquisition &#8594;</a>
+              <a href="repair.html" class="link-arrow" style="font-size:0.78rem;">Auto Repair &#8594;</a>
+              <a href="intelligence.html" class="link-arrow" style="font-size:0.78rem;">GPS &amp; Dash Cam &#8594;</a>
+              <a href="towing.html" class="link-arrow" style="font-size:0.78rem;">Emergency Towing &#8594;</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <footer id="site-footer" class="site-footer"></footer>
+  <script src="components.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NYC. EXOTIC | Luxury Automotive Services, New York City</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Outfit:wght@200;300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" defer></script>
+</head>
+<body>
+
+  <!-- Navigation (injected by components.js) -->
+  <div id="site-nav"></div>
+
+  <main>
+
+    <!-- HERO -->
+    <section class="hero" data-reveal-hero>
+      <div class="hero-img-col">
+        <img src="assets/hero_light_1775158002265.png" alt="Luxury vehicle on NYC street" style="object-position: center center;">
+      </div>
+      <div class="hero-text-col">
+        <p class="hero-eyebrow">New York's Premier Automotive Atelier</p>
+        <h1 class="hero-title">Curated<br><em>Elegance.</em></h1>
+        <p class="hero-desc">Unfettered access to the world's most coveted automobiles, paired with white-glove service across six disciplines.</p>
+        <div class="hero-ctas">
+          <a class="btn btn-gold" href="#services">Explore Services</a>
+          <a class="btn btn-outline" href="contact.html">Book Now</a>
+        </div>
+        <div class="hero-label">
+          <span class="hero-label-text">Est. New York City</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- STATS STRIP -->
+    <section class="stats-strip" data-reveal>
+      <div class="stats-strip-inner">
+        <div class="stat-item">
+          <div class="stat-num">24/7</div>
+          <div class="stat-label">Service Hours</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">200+</div>
+          <div class="stat-label">Vehicles Serviced Monthly</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">6</div>
+          <div class="stat-label">Service Disciplines</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">&lt;45</div>
+          <div class="stat-label">Min NYC Response</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVICES ACCORDION -->
+    <section class="services-accordion-section" id="services">
+      <div class="services-accordion-layout">
+
+        <!-- LEFT: header + accordion -->
+        <div class="services-accordion-left">
+          <div class="acc-header" data-reveal>
+            <p class="section-eyebrow">Our Disciplines</p>
+            <h2 class="section-heading">Everything Your<br>Vehicle Needs.</h2>
+          </div>
+
+          <div class="services-accordion">
+
+            <div class="acc-item is-open" data-acc>
+              <button class="acc-trigger" aria-expanded="true">
+                <span class="acc-num">01</span>
+                <span class="acc-sep">|</span>
+                <span class="acc-name">Exotic Rental</span>
+                <span class="acc-icon" aria-hidden="true">+</span>
+              </button>
+              <div class="acc-body">
+                <div class="acc-body-inner">
+                  <p class="acc-desc">Drive the world's finest machines by the day, week, or month. Rolls-Royce to Ferrari, delivered to you.</p>
+                  <a class="acc-link" href="rental.html">Explore Fleet &#8594;</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="acc-item" data-acc>
+              <button class="acc-trigger" aria-expanded="false">
+                <span class="acc-num">02</span>
+                <span class="acc-sep">|</span>
+                <span class="acc-name">White-Glove Delivery</span>
+                <span class="acc-icon" aria-hidden="true">+</span>
+              </button>
+              <div class="acc-body">
+                <div class="acc-body-inner">
+                  <p class="acc-desc">Your vehicle, your address. Enclosed transport with real-time tracking and a concierge handoff.</p>
+                  <a class="acc-link" href="delivery.html">Learn More &#8594;</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="acc-item" data-acc>
+              <button class="acc-trigger" aria-expanded="false">
+                <span class="acc-num">03</span>
+                <span class="acc-sep">|</span>
+                <span class="acc-name">Pre-Owned Acquisition</span>
+                <span class="acc-icon" aria-hidden="true">+</span>
+              </button>
+              <div class="acc-body">
+                <div class="acc-body-inner">
+                  <p class="acc-desc">Authenticated luxury vehicles with full provenance. Every car is inspected to 212 points before we present it.</p>
+                  <a class="acc-link" href="acquisition.html">View Collection &#8594;</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="acc-item" data-acc>
+              <button class="acc-trigger" aria-expanded="false">
+                <span class="acc-num">04</span>
+                <span class="acc-sep">|</span>
+                <span class="acc-name">Auto Repair</span>
+                <span class="acc-icon" aria-hidden="true">+</span>
+              </button>
+              <div class="acc-body">
+                <div class="acc-body-inner">
+                  <p class="acc-desc">Specialist technicians working exclusively with European and exotic marques. OEM parts. Full documentation.</p>
+                  <a class="acc-link" href="repair.html">The Workshop &#8594;</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="acc-item" data-acc>
+              <button class="acc-trigger" aria-expanded="false">
+                <span class="acc-num">05</span>
+                <span class="acc-sep">|</span>
+                <span class="acc-name">GPS &amp; Dash Cam</span>
+                <span class="acc-icon" aria-hidden="true">+</span>
+              </button>
+              <div class="acc-body">
+                <div class="acc-body-inner">
+                  <p class="acc-desc">Certified GPS tracking and 4K dash cam installations. Factory-finish concealment. Insurance-approved.</p>
+                  <a class="acc-link" href="intelligence.html">The Intelligence &#8594;</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="acc-item" data-acc>
+              <button class="acc-trigger" aria-expanded="false">
+                <span class="acc-num">06</span>
+                <span class="acc-sep">|</span>
+                <span class="acc-name">Emergency Towing</span>
+                <span class="acc-icon" aria-hidden="true">+</span>
+              </button>
+              <div class="acc-body">
+                <div class="acc-body-inner">
+                  <p class="acc-desc">24/7 enclosed flatbed response across all five boroughs and the tristate area. No machine left behind.</p>
+                  <a class="acc-link" href="towing.html">The Assurance &#8594;</a>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <a class="acc-footer-bar" href="contact.html">
+            <span>Make an Enquiry</span>
+            <span>&#8594;</span>
+          </a>
+        </div>
+
+        <!-- RIGHT: vehicle image -->
+        <div class="services-accordion-img" aria-hidden="true">
+          <img src="assets/vehicle_1_1775158017269.png" alt="">
+          <div class="services-accordion-img-overlay"></div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- FEATURED: THE FLEET -->
+    <section class="fleet-featured" data-reveal>
+      <div class="fleet-featured-img">
+        <img src="assets/vehicle_1_1775158017269.png" alt="Luxury vehicle from the fleet">
+      </div>
+      <div class="fleet-featured-text">
+        <p class="section-eyebrow">The Fleet</p>
+        <h2 class="section-heading">24 Bespoke<br>Vehicles.</h2>
+        <p>A curated selection of the world's most desirable automobiles, maintained to an impossible standard and available on your terms.</p>
+        <ul class="marque-list">
+          <li>Rolls-Royce</li>
+          <li>Lamborghini</li>
+          <li>Bentley</li>
+          <li>Ferrari</li>
+          <li>Porsche</li>
+          <li>Aston Martin</li>
+        </ul>
+        <a class="link-arrow" href="rental.html">View Full Fleet <span>&#8594;</span></a>
+      </div>
+    </section>
+
+    <!-- WHY NYC. EXOTIC -->
+    <section class="why-section">
+      <div class="container">
+        <p class="section-eyebrow" data-reveal>Why Choose Us</p>
+        <h2 class="section-heading" data-reveal>A Standard That<br>Does Not Bend.</h2>
+        <div class="why-list">
+          <div class="why-list-item" data-reveal>
+            <span class="why-list-num">01</span>
+            <div class="why-list-body">
+              <h3 class="why-list-title">Marque Specialists</h3>
+              <p class="why-list-desc">Every technician is trained specifically on the marques we service. Generalists do not touch our vehicles.</p>
+            </div>
+          </div>
+          <div class="why-list-item" data-reveal>
+            <span class="why-list-num">02</span>
+            <div class="why-list-body">
+              <h3 class="why-list-title">White-Glove Standard</h3>
+              <p class="why-list-desc">From the way we answer the phone to the way we return your car, every interaction is treated with the same care.</p>
+            </div>
+          </div>
+          <div class="why-list-item" data-reveal>
+            <span class="why-list-num">03</span>
+            <div class="why-list-body">
+              <h3 class="why-list-title">24/7 Availability</h3>
+              <p class="why-list-desc">Luxury does not keep office hours. Our team is available around the clock for every service we offer.</p>
+            </div>
+          </div>
+          <div class="why-list-item" data-reveal>
+            <span class="why-list-num">04</span>
+            <div class="why-list-body">
+              <h3 class="why-list-title">Citywide Coverage</h3>
+              <p class="why-list-desc">All five boroughs, New Jersey, and Connecticut. One call connects you to all six services, anywhere in the metro area.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA BANNER -->
+    <section class="cta-banner" data-reveal>
+      <h2>Ready to Begin?</h2>
+      <p>Every client relationship starts with a single conversation. Tell us what you need.</p>
+      <a class="btn btn-gold" href="contact.html">Contact Us &#8594;</a>
+    </section>
+
+  </main>
+
+  <!-- Footer (injected by components.js) -->
+  <footer id="site-footer" class="site-footer"></footer>
+
+  <script src="components.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
