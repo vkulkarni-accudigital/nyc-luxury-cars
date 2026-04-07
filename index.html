@@ -1168,7 +1168,7 @@ h1, h2, h3, h4 { font-family: var(--font-serif); font-weight: 400; line-height: 
   </style>
 </head>
 <body>
-<script>if (window.self !== window.top) document.documentElement.classList.add('in-iframe');</script>
+<script>try{if(window.self!==window.top)document.documentElement.classList.add('in-iframe');}catch(e){document.documentElement.classList.add('in-iframe');}</script>
 
 <nav class="nav" id="main-nav">
   <div class="nav-container">
